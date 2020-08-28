@@ -25,17 +25,17 @@ class App extends React.Component {
     token: ""
   }
 
-  // componentDidMount(){
-  //   if(localStorage.token){
-  //     fetch('http://localhost:3000/student_persist',{
-  //     headers: {
-  //       "Authorization": `Bearer ${localStorage.token}`
-  //     }
-  //     })
-  //     .then(res => res.json())
-  //     .then(json => this.studentAuthResponse(json))
-  //   }
-  // }
+  componentDidMount(){
+    if(localStorage.token){
+      fetch('http://localhost:3000/student_persist',{
+      headers: {
+        "Authorization": `Bearer ${localStorage.token}`
+      }
+      })
+      .then(res => res.json())
+      .then(json => this.studentAuthResponse(json))
+    }
+  }
 
   // Student login and sign-up
   studentAuthResponse = (json) => {
@@ -114,17 +114,17 @@ class App extends React.Component {
   }
 
   // Coach sign-in and sign-up
-  componentDidMount(){
-    if(localStorage.token){
-      fetch('http://localhost:3000/coach_persist',{
-      headers: {
-        "Authorization": `Bearer ${localStorage.token}`
-      }
-      })
-      .then(res => res.json())
-      .then(json => this.coachAuthResponse(json))
-    }
-  }
+  // componentDidMount(){
+  //   if(localStorage.token){
+  //     fetch('http://localhost:3000/coach_persist',{
+  //     headers: {
+  //       "Authorization": `Bearer ${localStorage.token}`
+  //     }
+  //     })
+  //     .then(res => res.json())
+  //     .then(json => this.coachAuthResponse(json))
+  //   }
+  // }
 
   coachAuthResponse = (json) => {
     if (json.coach){

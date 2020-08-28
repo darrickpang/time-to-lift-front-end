@@ -1,4 +1,5 @@
 import React from 'react';
+import MapContainer from './MapContainer'
 import { withRouter } from 'react-router-dom';
 import { Button } from 'reactstrap';
 
@@ -27,6 +28,7 @@ class StudentMainContent extends React.Component {
                 Student is logged in
                 {this.renderUserInfo()}
                 {this.renderLogout()}
+                {<MapContainer/>}
             </div>
         )
     }
