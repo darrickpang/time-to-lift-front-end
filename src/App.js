@@ -8,7 +8,6 @@ import CoachMainContent from './containers/CoachMainContainer';
 import { Switch, Route, withRouter} from 'react-router-dom';
 
 class App extends React.Component {
-
   state = {
     student: {
       id: null,

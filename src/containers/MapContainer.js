@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { GoogleApiWrapper, InfoWindow, Marker }  from 'google-maps-react';
 import CurrentLocation from '../components/Map';
+// https://www.digitalocean.com/community/tutorials/how-to-integrate-the-google-maps-api-into-react-applications
+
 export class MapContainer extends Component {
     state = {
         showingInfoWindow: false,
@@ -46,5 +48,5 @@ export class MapContainer extends Component {
 }
   
 export default GoogleApiWrapper({
-    // apiKey: 
+    // apiKey:   
 })(MapContainer);

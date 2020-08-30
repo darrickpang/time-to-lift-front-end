@@ -2,7 +2,7 @@ import React from 'react';
 import MapContainer from './MapContainer'
 import { withRouter } from 'react-router-dom';
 import { Button } from 'reactstrap';
-
+import MyMapComponent from '../components/GooglePlaces'
 class StudentMainContent extends React.Component {
     renderUserInfo = () => {
         return (
@@ -22,13 +22,13 @@ class StudentMainContent extends React.Component {
         )
     }
     render(){
-        console.log(this.props.student)
         return(
             <div>
                 Student is logged in
                 {this.renderUserInfo()}
                 {this.renderLogout()}
                 {<MapContainer/>}
+                {/* {<MyMapComponent/>} */}
             </div>
         )
     }
