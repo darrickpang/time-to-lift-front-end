@@ -1,6 +1,7 @@
 import React from 'react';
 import MyMapComponent from './GooglePlaces'
 // https://www.digitalocean.com/community/tutorials/how-to-integrate-the-google-maps-api-into-react-applications
+
 const mapStyles = {
     map: {
         position: 'absolute',
@@ -21,28 +22,6 @@ export class CurrentLocation extends React.Component {
         };
     }
   
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.google !== this.props.google) {
-            this.loadMap();
-        }
-        if (prevState.currentLocation !== this.state.currentLocation) {
-            this.recenterMap();
-        }
-    }
-    
-    recenterMap() {
-        const map = this.map;
-        const current = this.state.currentLocation;
-    
-        const google = this.props.google;
-        const maps = google.maps;
-    
-        if (map) {
-            let center = new maps.LatLng(current.lat, current.lng);
-            map.panTo(center);
-        }
-    }
-    
     componentDidMount() {
         if (this.props.centerAroundCurrentLocation) {
             if (navigator && navigator.geolocation) {
@@ -59,16 +38,30 @@ export class CurrentLocation extends React.Component {
         }
     }
 
+    renderChildren() {
+        const { children } = this.props;
+    
+        if (!children) return;
+    
+        return React.Children.map(children, c => {
+            if (!c) return;
+            return React.cloneElement(c, {
+                map: this.map,
+                google: this.props.google,
+                mapCenter: this.state.currentLocation
+            });
+        });
+    }
+
     render() {
         const style = Object.assign({}, mapStyles.map);
-        console.log(this.state.currentLocation.lat)
-        console.log(this.state.currentLocation.lng)
         return (
             <div>
                 <div style={style} ref="map">
                     Loading map...
                 </div>
                 <MyMapComponent currentLocation={this.state.currentLocation}/>
+                {this.renderChildren()}
             </div>
         );
     }

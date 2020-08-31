@@ -2,9 +2,9 @@ import React from 'react';
 import {  withRouter } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import StudentNavContainer from './StudentNavContainer'
-import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css' // only needs to be imported once
 import MyCalendar from '../components/Calendar'
+
 class StudentMainContent extends React.Component {
     renderUserInfo = () => {
         return (

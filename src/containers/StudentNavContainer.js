@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
-import Map from '../components/Map'
+import Map from '../components/Map';
+import { MapContainer } from './MapContainer';
 
 class StudentNavContainer extends React.Component {
     state = {
@@ -19,7 +20,7 @@ class StudentNavContainer extends React.Component {
         return(
             <div>
                 map
-                <Map />
+                <MapContainer />
             </div>
         )
     }
