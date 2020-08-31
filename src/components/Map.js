@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import MyMapComponent from './GooglePlaces'
 // https://www.digitalocean.com/community/tutorials/how-to-integrate-the-google-maps-api-into-react-applications
 const mapStyles = {
@@ -58,7 +57,6 @@ export class CurrentLocation extends React.Component {
                 });
             }
         }
-        //this.loadMap();
     }
 
     render() {
@@ -71,7 +69,6 @@ export class CurrentLocation extends React.Component {
                     Loading map...
                 </div>
                 <MyMapComponent currentLocation={this.state.currentLocation}/>
-                {/* {this.renderChildren()} */}
             </div>
         );
     }

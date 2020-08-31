@@ -40,3 +40,40 @@
 .welcome-page {
   color: #fff;
 }
+
+/* The sidebar menu */
+.sidenav-container {
+  height: 100%; 
+  width: 30%;
+  flex-direction: row;
+  position: fixed;
+  /* Full-height: remove this if you want "auto" height */
+  /* width: 500px !important; Set the width of the sidebar */
+  /* position: fixed; Fixed Sidebar (stay in place on scroll) */
+  /* z-index: 1; Stay on top */
+  /* top: 0; Stay at the top */
+  /* left: 0; */
+  background-color: rgb(28, 156, 220); /* Black */
+  color: white;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* The navigation menu links */
+.sidenav-container a {
+  padding: 6px 8px 6px 16px;
+  margin-left: 20px; 
+  margin-right: 20px;
+  text-decoration: none !important;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav-container a:hover {
+  color: #111;
+  background-color: #66FCF1;
+}

@@ -8,7 +8,7 @@ const MyMapComponent = compose(
     withProps({
         googleMapURL: "https://maps.googleapis.com/maps/api/js?key=&libraries=places",
         loadingElement: <div style={{ height: `100%` }} />,
-        containerElement: <div style={{ height: `400px` }} />,
+        containerElement: <div style={{ height: `500px` }} />,
         mapElement: <div style={{ height: `100%` }} />,
     }),
     withScriptjs,
@@ -24,7 +24,6 @@ const MyMapComponent = compose(
                 refs.map = ref
             },
             fetchPlaces: ({ updatePlaces }) => {
-                let places;
                 const bounds = refs.map.getBounds();
                 const service = new google.maps.places.PlacesService(refs.map.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED);
                 const request = {
@@ -32,7 +31,7 @@ const MyMapComponent = compose(
                     type: ['gym']
                 };
                 service.nearbySearch(request, (results, status) => {
-                    if (status == google.maps.places.PlacesServiceStatus.OK) {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
                         console.log(results);
                         updatePlaces(results);
                     }
@@ -42,13 +41,14 @@ const MyMapComponent = compose(
     }),
 )
 ((props) => {
+    console.log(props.currentLocation)
     return (
         <GoogleMap
             onTilesLoaded={props.fetchPlaces}
             ref={props.onMapMounted}
             onBoundsChanged={props.fetchPlaces}
             defaultZoom={8}
-            defaultCenter={{ lat: 37.43247, lng: -121.8676 }} // *********** REMINDER: need to see why props are not passed in here...annoying bastard
+            defaultCenter={{ lat: props.currentLocation.lat, lng: props.currentLocation.lng }} // now this works
         >
             {props.places && props.places.map((place, i) =>
                 <Marker key={i} position={{ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() }} />
@@ -57,11 +57,3 @@ const MyMapComponent = compose(
     )
 })
 export default MyMapComponent
-// export default class MyFancyComponent extends React.PureComponent {
-//     render() {
-//         console.log(this.props)
-//         return (
-//             <MyMapComponent />
-//         )
-//     }
-// }

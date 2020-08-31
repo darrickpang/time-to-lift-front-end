@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Button } from 'reactstrap';
-
+import CoachNavContainer from './CoachNavContainer'
 class CoachMainContent extends React.Component {
 
     renderCoachInfo = () => {
@@ -27,6 +27,7 @@ class CoachMainContent extends React.Component {
                 Coach is logged in
                 {this.renderCoachInfo()}
                 {this.renderLogout()}
+                <CoachNavContainer />
             </div>
         )
     }
