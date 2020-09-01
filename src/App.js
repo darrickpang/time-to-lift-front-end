@@ -21,11 +21,14 @@ class App extends React.Component {
       age: "",
       location: ""
     },
-    token: ""
+    classes: [],
+    token: "",
+    coach_token: ""
   }
 
   componentDidMount(){
-    if(localStorage.token){
+    //student_token
+    if(localStorage.token){  
       fetch('http://localhost:3000/student_persist',{
       headers: {
         "Authorization": `Bearer ${localStorage.token}`
@@ -33,6 +36,17 @@ class App extends React.Component {
       })
       .then(res => res.json())
       .then(json => this.studentAuthResponse(json))
+    }
+    
+    // coach token
+    else if(localStorage.coach_token){ 
+      fetch('http://localhost:3000/coach_persist',{
+      headers: {
+        "Authorization": `Bearer ${localStorage.coach_token}`
+      }
+      })
+      .then(res => res.json())
+      .then(json => this.coachAuthResponse(json))
     }
   }
 
@@ -112,22 +126,10 @@ class App extends React.Component {
     return <StudentMainContent student ={this.state.student} token={this.state.token} />
   }
 
-  // Coach sign-in and sign-up
-  // componentDidMount(){
-  //   if(localStorage.token){
-  //     fetch('http://localhost:3000/coach_persist',{
-  //     headers: {
-  //       "Authorization": `Bearer ${localStorage.token}`
-  //     }
-  //     })
-  //     .then(res => res.json())
-  //     .then(json => this.coachAuthResponse(json))
-  //   }
-  // }
-
+  // Coach sign in or sign up
   coachAuthResponse = (json) => {
     if (json.coach){
-      localStorage.token = json.token
+      localStorage.coach_token = json.coach_token
       this.setState({
         coach: {
           id: json.coach.data.attributes.id,
@@ -135,7 +137,7 @@ class App extends React.Component {
           age: json.coach.data.attributes.age,
           location: json.coach.data.attributes.location
         },
-        token: json.token
+        coach_token: json.coach_token
       }, () => this.props.history.push('/coach_main'))
     }
   }
@@ -197,7 +199,63 @@ class App extends React.Component {
   }
 
   renderCoachMainContent = () => {
-    return <CoachMainContent coach ={this.state.coach} token={this.state.token} />
+    return <CoachMainContent coach ={this.state.coach} coach_token={this.state.coach_token} addClass={this.addClass} updateClass={this.updateClass}/>
+  }
+
+  // Classes information 
+  addClass= (newClass) => {
+    fetch(`http://localhost:3000/class_sessions`, {
+      method: 'POST', 
+      headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+      },
+      body: JSON.stringify(newClass),
+  }) 
+  .then(r => r.json())
+  .then(json => {
+      this.setState({
+        classes: [...this.state.classes, {
+          id: json.id,
+          name: json.name,
+          location: json.location,
+          duration: json.duration,
+          coach_id: json.coach_id,
+          gym_id: json.gym_id
+        }]
+      })
+    })
+  }
+
+  updateClass = (id, class_info) => {
+    fetch(`http://localhost:3000/class_sessions/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+        },
+        body: JSON.stringify(class_info)
+    })
+    .then(res => res.json())
+    .then(json => {
+        let classes = this.state.classes.map(class_info => {
+            if(class_info.id === json.id){
+                let newClass = {
+                  id: json.id,
+                  name: json.name,
+                  location: json.location,
+                  duration: json.duration,
+                  coach_id: json.coach_id,
+                  gym_id: json.gym_id
+                }
+                return newClass
+            }else{
+                return class_info
+            }
+        })
+        this.setState({
+            classes: classes
+    })})
   }
 
   render(){
