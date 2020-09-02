@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import MapContainer from './MapContainer'
-import InfiniteCalendar from 'react-infinite-calendar';
+import CoachClassContainer from './CoachClassContainer'
 import 'react-infinite-calendar/styles.css' 
 
 class CoachNavContainer extends React.Component {
@@ -26,10 +26,17 @@ class CoachNavContainer extends React.Component {
         )
     }
 
+    renderCoachClassContainer = () => {
+        return(
+            <CoachClassContainer />
+        )
+    }
+
     renderSidenavOptions = () => {
         return (
             <div className="sidenav-options">
                {this.renderMap()}
+               {this.renderCoachClassContainer()}
             </div>
         )
     }

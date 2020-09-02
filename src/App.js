@@ -229,12 +229,12 @@ class App extends React.Component {
 
   updateClass = (id, class_info) => {
     fetch(`http://localhost:3000/class_sessions/${id}`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json'
-        },
-        body: JSON.stringify(class_info)
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify(class_info)
     })
     .then(res => res.json())
     .then(json => {
