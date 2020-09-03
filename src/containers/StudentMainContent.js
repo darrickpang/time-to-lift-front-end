@@ -3,7 +3,6 @@ import {  withRouter } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import StudentNavContainer from './StudentNavContainer'
 import 'react-infinite-calendar/styles.css' // only needs to be imported once
-import MyCalendar from '../components/Calendar'
 
 class StudentMainContent extends React.Component {
     renderUserInfo = () => {
@@ -24,13 +23,14 @@ class StudentMainContent extends React.Component {
         )
     }
     render(){
+        console.log(this.props.student)
+        let {addDate, updateDate, student} = this.props
         return(
             <div>
                 Student is logged in
                 {this.renderUserInfo()}
                 {this.renderLogout()} 
-                <StudentNavContainer />
-                <MyCalendar/>
+                <StudentNavContainer dates={this.props.student_dates} addDate={addDate} updateDate={updateDate} student={student}/>
             </div>
             
         )

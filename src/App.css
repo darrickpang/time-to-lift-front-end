@@ -44,7 +44,7 @@
 /* The sidebar menu */
 .sidenav-container {
   height: 100%; 
-  width: 30%;
+  width: 100%;
   flex-direction: row;
   position: fixed;
   /* Full-height: remove this if you want "auto" height */
@@ -64,8 +64,8 @@
 /* The navigation menu links */
 .sidenav-container a {
   padding: 6px 8px 6px 16px;
-  margin-left: 20px; 
-  margin-right: 20px;
+  margin-left: 30px; 
+  margin-right: 30px;
   text-decoration: none !important;
   font-size: 20px;
   color: #818181;

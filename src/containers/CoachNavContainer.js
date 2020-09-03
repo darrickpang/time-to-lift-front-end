@@ -26,17 +26,17 @@ class CoachNavContainer extends React.Component {
         )
     }
 
-    renderCoachClassContainer = () => {
+    renderCoachClassContainer = (classes, gym, addClass, updateClass, coach, allClasses) => {
         return(
-            <CoachClassContainer />
+            <CoachClassContainer classes={classes} gym={gym} addClass={addClass} updateClass={updateClass} coach={coach} allClasses={allClasses}/>
         )
     }
 
-    renderSidenavOptions = () => {
+    renderSidenavOptions = (classes, gym, addClass, updateClass, coach, allClasses) => {
         return (
             <div className="sidenav-options">
                {this.renderMap()}
-               {this.renderCoachClassContainer()}
+               {this.renderCoachClassContainer(classes, gym, addClass, updateClass, coach, allClasses)}
             </div>
         )
     }

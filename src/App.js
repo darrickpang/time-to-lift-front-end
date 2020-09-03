@@ -21,7 +21,9 @@ class App extends React.Component {
       age: "",
       location: ""
     },
+    student_dates: [],
     classes: [],
+    gyms: [],
     token: "",
     coach_token: ""
   }
@@ -61,6 +63,7 @@ class App extends React.Component {
           age: json.student.data.attributes.age,
           location: json.student.data.attributes.location
         },
+        student_dates: json.student.data.attributes.student_dates,
         token: json.token
       }, () => this.props.history.push('/student_main'))
     }
@@ -123,7 +126,7 @@ class App extends React.Component {
   }
 
   renderStudentMainContent = () => {
-    return <StudentMainContent student ={this.state.student} token={this.state.token} />
+    return <StudentMainContent student ={this.state.student} token={this.state.token} student_dates={this.state.student_dates} addDate={this.addDate} updateDate={this.updateDate}/>
   }
 
   // Coach sign in or sign up
@@ -199,10 +202,16 @@ class App extends React.Component {
   }
 
   renderCoachMainContent = () => {
-    return <CoachMainContent coach ={this.state.coach} coach_token={this.state.coach_token} addClass={this.addClass} updateClass={this.updateClass}/>
+    return <CoachMainContent coach ={this.state.coach} allClasses={this.state.classes} coach_token={this.state.coach_token} addClass={this.addClass} updateClass={this.updateClass} gym={this.state.gym}/>
   }
 
   // Classes information 
+  allClasses = () => {
+    fetch('http://localhost:3000/class_sessions')
+    .then(res => res.json())
+    .then(json => this.setState({classes: json}))
+  }
+
   addClass= (newClass) => {
     fetch(`http://localhost:3000/class_sessions`, {
       method: 'POST', 
@@ -238,19 +247,20 @@ class App extends React.Component {
     })
     .then(res => res.json())
     .then(json => {
-        let classes = this.state.classes.map(class_info => {
-            if(class_info.id === json.id){
-                let newClass = {
+      let classes = this.state.classes.map(class_info => {
+        if(class_info.id === json.id){
+            let newClass = {
                   id: json.id,
                   name: json.name,
                   location: json.location,
                   duration: json.duration,
                   coach_id: json.coach_id,
                   gym_id: json.gym_id
-                }
-                return newClass
-            }else{
-                return class_info
+            }
+            return newClass
+            }
+            else{
+              return class_info
             }
         })
         this.setState({
@@ -258,7 +268,60 @@ class App extends React.Component {
     })})
   }
 
+  // student class dates
+  addDate = (newDate) => {
+    fetch(`http://localhost:3000/student_dates`, {
+      method: 'POST', 
+      headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+      },
+      body: JSON.stringify(newDate),
+  }) 
+  .then(r => r.json())
+  .then(json => {
+      this.setState({
+        student_dates: [...this.state.student_dates, {
+          id: json.id,
+          class_name: json.nclass_ame,
+          date: json.date
+        }]
+      })
+    })
+  }
+
+  updateDate = (id, date_info) => {
+    fetch(`http://localhost:3000/student_dates/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify(date_info)
+    })
+    .then(res => res.json())
+    .then(json => {
+      let dates = this.state.dates.map(date_info => {
+        if(date_info.id === json.id){
+            let newDate = {
+                  id: json.id,
+                  class_name: json.class_name,
+                  date: json.date,
+
+            }
+            return newDate
+            }
+            else{
+              return date_info
+            }
+        })
+        this.setState({
+            dates: dates
+    })})
+  }
+
   render(){
+    console.log(this.state.student)
     return (
       <div className="App">
         <Switch>
