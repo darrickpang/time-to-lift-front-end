@@ -16,8 +16,8 @@ export default class MyCalendar extends Component {
 
     state = {
         id: null, 
-        class_name: '',
-        date: '',
+        class_name: null,
+        date: null,
         dateAdd: true
     }
     
@@ -46,15 +46,14 @@ export default class MyCalendar extends Component {
             // reset state
             this.setState({
                 id: null,
-                class_name: '',
-                date: '',
+                class_name: null,
+                date: null,
                 dateAdd: true
             })
-            console.log(e.target.parentElement.children[0])
             e.target.parentElement.children[0].reset()
         }
         else{
-            alert("You must include class_name and date to create a new schedule.")
+            alert("You must include a class name and date to create a new schedule.")
         }
     }
 
@@ -62,8 +61,8 @@ export default class MyCalendar extends Component {
         if(selectedValue === "n/a"){
             this.setState({
                 id: null,
-                class_name: '',
-                date: '',
+                class_name: null,
+                date: null,
                 dateAdd: true
             })
         }
@@ -78,14 +77,24 @@ export default class MyCalendar extends Component {
         }
     }
 
-    generateClassDropdownOptions = (dates) => {
-        return dates.map(date_info => {
-            return <option id={date_info.id} key={date_info.id} value={date_info.id}>{date_info.activity}</option>
-        })
+    generateClassDropdownOptions = (classes) => {
+        return classes.map(class_info => {
+            return <option id={class_info.id} key={class_info.id} value={class_info.id}>
+                    {class_info.attributes.name}, {class_info.attributes.date},  
+                    {class_info.attributes.time}, {class_info.attributes.duration},  
+                    {class_info.attributes.coach.name}
+                </option>
+            }
+        )
     }
 
     render() {
-        let {addDate, updateDate} = this.props
+        let {addDate, updateDate, classes} = this.props
+        // console.log(classes[0])
+        if (!classes) {
+            return <span>Loading...</span>;
+        }
+        console.log(classes[0].attributes)
         return (
             <div>
                 
@@ -99,7 +108,7 @@ export default class MyCalendar extends Component {
                             </Col>
                             <Col md={6}>
                                 <FormGroup>
-                                    <Input type="text" name="date" id="date" placeholder="date" value={this.state.date} onChange={this.handleOnChange}/>
+                                    <Input type="text" name="date" id="date" placeholder="Class date" value={this.state.date} onChange={this.handleOnChange}/>
                                 </FormGroup>
                             </Col>
                             
@@ -107,6 +116,12 @@ export default class MyCalendar extends Component {
                         <Button>Submit</Button>
                     </Form> 
                 </CardBody>
+                <FormGroup onChange={this.handleClassDropdownChange}>
+                            <Input type="select" name="select" id="edit-goal">
+                                <option value={"n/a"}>Select class</option>
+                                {classes ? this.generateClassDropdownOptions(classes) : false}
+                            </Input>
+                    </FormGroup>
                 <FullCalendar
                     plugins={[ dayGridPlugin ]}
                     defaultView="dayGridMonth"

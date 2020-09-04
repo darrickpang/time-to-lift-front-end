@@ -25,7 +25,7 @@ class StudentNavContainer extends React.Component {
 
     renderCalendar = (addDate, updateDate, student) => {
         return(
-            <MyCalendar student_dates={this.props.dates} addDate={addDate} updateDate={updateDate} student={student}/>
+            <MyCalendar student_dates={this.props.dates} classes={this.props.classes} addDate={addDate} updateDate={updateDate} student={student}/>
         )
     }
 
@@ -39,6 +39,7 @@ class StudentNavContainer extends React.Component {
     }
 
     render(){
+        // console.log(this.props.classes)
         return(
             <div className="sidenav-container">
                 {this.renderSidenavOptions(this.props.addDate, this.props.updateDate, this.props.student)}

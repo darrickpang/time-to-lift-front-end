@@ -23,13 +23,14 @@ class StudentMainContent extends React.Component {
         )
     }
     render(){
-        let {addDate, updateDate, student} = this.props
+        let {addDate, updateDate, student, classes} = this.props
+        // console.log(classes)
         return(
             <div>
                 Student is logged in
                 {this.renderUserInfo()}
                 {this.renderLogout()} 
-                <StudentNavContainer dates={this.props.student_dates} addDate={addDate} updateDate={updateDate} student={student}/>
+                <StudentNavContainer dates={this.props.student_dates} addDate={addDate} updateDate={updateDate} student={student} classes={classes}/>
             </div>
             
         )

@@ -50,10 +50,15 @@ class App extends React.Component {
       .then(res => res.json())
       .then(json => this.coachAuthResponse(json))
     }
-
+    // grab all gyms
     fetch(`http://localhost:3000/gyms`)
     .then(r => r.json())
     .then(json => this.setState({gyms: json}))
+
+    // all classes
+    fetch('http://localhost:3000/class_sessions')
+    .then(res => res.json())
+    .then(json => this.setState({classes: json}))
   }
 
   // Student login and sign-up
@@ -131,8 +136,9 @@ class App extends React.Component {
 
   renderStudentMainContent = () => {
     return <StudentMainContent student ={this.state.student} token={this.state.token} 
-    student_dates={this.state.student_dates} addDate={this.addDate} 
-    updateDate={this.updateDate}/>
+            student_dates={this.state.student_dates} addDate={this.addDate} classes={this.state.classes.data}
+            updateDate={this.updateDate}
+          />
   }
 
   // Coach sign in or sign up
@@ -214,12 +220,6 @@ class App extends React.Component {
   }
 
   // Classes information 
-  allClasses = () => {
-    fetch('http://localhost:3000/class_sessions')
-    .then(res => res.json())
-    .then(json => this.setState({classes: json}))
-  }
-
   addClass= (newClass) => {
     fetch(`http://localhost:3000/class_sessions`, {
       method: 'POST', 
@@ -351,7 +351,6 @@ class App extends React.Component {
 }
 
   render(){
-    // console.log(this.addClass)
     return (
       <div className="App">
         <Switch>

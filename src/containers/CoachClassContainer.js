@@ -47,7 +47,6 @@ export default class CoachClassContainer extends Component {
                 gym_id: null,
                 classAdd: true
             })
-            console.log(e.target.parentElement.children[0])
             e.target.parentElement.children[0].reset()
         }
         else{
