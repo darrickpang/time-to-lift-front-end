@@ -47,10 +47,11 @@ export default class CoachClassContainer extends Component {
                 gym_id: null,
                 classAdd: true
             })
-            e.target.parentElement.reset()
+            console.log(e.target.parentElement.children[0])
+            e.target.parentElement.children[0].reset()
         }
         else{
-            alert("You must include name, duration, and location to create a new class.")
+            alert("You must include name, duration, time, date, and gym to create a new class.")
         }
     }
 
@@ -98,19 +99,18 @@ export default class CoachClassContainer extends Component {
                 return <option id={gym.id} key={gym.id} value={gym.id} selected>{gym.name}, {gym.address}</option>
             }
             else{
-                return <option id={gym.id} key={gym.id} value={gym.id}>{gym.name}</option>
+                return <option id={gym.id} key={gym.id} value={gym.id}>{gym.name}, {gym.address}</option>
             }
         })
     }
 
     render(){
-        let {gyms, addClass, updateClass} = this.props
-        // console.log(this.props.addClass)
+        let {addClass, updateClass, gyms} = this.props
         return(
             <div>
                 Coach class container
                 <CardBody>
-                    <Form onSubmit={(e) => this.handleSubmit(e, gyms, addClass, updateClass)}>
+                    <Form onSubmit={(e) => this.handleSubmit(e, addClass, updateClass, gyms)}>
                         <Row form>
                             <Col md={6}>
                                 <FormGroup>

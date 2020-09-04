@@ -235,7 +235,8 @@ class App extends React.Component {
         classes: [...this.state.classes, {
           id: json.id,
           name: json.name,
-          location: json.location,
+          time: json.time,
+          date: json.date,
           duration: json.duration,
           gym_id: json.gym_id
         }]
@@ -259,7 +260,8 @@ class App extends React.Component {
             let newClass = {
                   id: json.id,
                   name: json.name,
-                  location: json.location,
+                  time: json.time,
+                  date: json.date,
                   duration: json.duration,
                   gym_id: json.gym_id
             }
