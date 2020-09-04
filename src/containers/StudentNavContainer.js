@@ -1,8 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Button } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
-import Map from '../components/Map';
 import { MapContainer } from './MapContainer';
 import MyCalendar from '../components/StudentCalendar'
 
@@ -32,20 +29,19 @@ class StudentNavContainer extends React.Component {
         )
     }
 
-    renderSidenavOptions = () => {
+    renderSidenavOptions = (addDate, updateDate, student) => {
         return (
             <div className="sidenav-options">
                {this.renderMap()}
-               {this.renderCalendar()}
+               {this.renderCalendar(addDate, updateDate, student)}
             </div>
         )
     }
 
     render(){
-        console.log(this.props.student)
         return(
             <div className="sidenav-container">
-                {this.renderSidenavOptions()}
+                {this.renderSidenavOptions(this.props.addDate, this.props.updateDate, this.props.student)}
             </div>
         )}
     }

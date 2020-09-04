@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
 import {CardBody, Button, Form, Input, FormGroup, Row, Col, Label} from 'reactstrap'
 // import interactionPlugin from "@fullcalendar/interaction";
 export default class MyCalendar extends Component {
@@ -19,47 +18,30 @@ export default class MyCalendar extends Component {
         id: null, 
         class_name: '',
         date: '',
-        // student_id: this.props.student.id,
         dateAdd: true
     }
     
     handleOnChange = (e) => {
-        console.log(e.target.class_name)
         this.setState({
-            [e.target.class_name]: e.target.value
+            [e.target.name]: e.target.value
         })
-    }
-
-    handleSubmit = (e, addDate, updateDate) => {
-        e.preventDefault()
-        let dates_info = {
-            class_name: this.state.class_name,
-            date: this.state.date
-        }
-        this.state.dateAdd ? addDate(dates_info) : updateDate(this.state.id, dates_info)
-        this.setState({
-            id: null,
-            class_name: '',
-            date: '',
-            dateAdd: true
-        })
-        e.target.reset()
     }
 
     handleSubmit = (e, addDate, updateDate) => {
         e.preventDefault()
         let {class_name, date} = this.state
         if(class_name !== null && date !== null){
-            let dates_info = {
+            let date_info = {
                 class_name: class_name,
-                date: date
+                date: date,
+                student_id: parseInt(this.props.student.id)
             }
             // persist to database
             if(this.state.dateAdd){
-                addDate(dates_info)
+                addDate(date_info)
             } 
-            else if(!this.state.dateAdd && e.target.class_name === "submit"){
-                updateDate(this.state.id, dates_info)
+            else if(!this.state.dateAdd && e.target.name === "submit"){
+                updateDate(this.state.id, date_info)
             }
             // reset state
             this.setState({
@@ -68,7 +50,8 @@ export default class MyCalendar extends Component {
                 date: '',
                 dateAdd: true
             })
-            e.target.parentElement.reset()
+            console.log(e.target.parentElement.children[0])
+            e.target.parentElement.children[0].reset()
         }
         else{
             alert("You must include class_name and date to create a new schedule.")
@@ -85,19 +68,19 @@ export default class MyCalendar extends Component {
             })
         }
         else{
-            let dates_info = dates.find(dates_info => dates_info.id == selectedValue)
+            let date_info = dates.find(date_info => date_info.id == selectedValue)
             this.setState({
-                id: dates_info.id,
-                class_name: dates_info.class_name,
-                date: dates_info.date,
+                id: date_info.id,
+                class_name: date_info.class_name,
+                date: date_info.date,
                 dateAdd: false
             })
         }
     }
 
     generateClassDropdownOptions = (dates) => {
-        return dates.map(dates_info => {
-            return <option id={dates_info.id} key={dates_info.id} value={dates_info.id}>{dates_info.activity}</option>
+        return dates.map(date_info => {
+            return <option id={date_info.id} key={date_info.id} value={date_info.id}>{date_info.activity}</option>
         })
     }
 

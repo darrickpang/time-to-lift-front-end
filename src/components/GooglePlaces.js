@@ -3,7 +3,7 @@ import React from "react"
 import { compose, withProps, withHandlers, withState } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 // https://stackoverflow.com/questions/47114169/how-to-use-react-with-google-places-api-to-display-place-markers-on-a-google-ma
-
+// ${process.env.REACT_APP_YOUR_API_KEY_NAME}
 const MyMapComponent = compose(
     withProps({
         googleMapURL: `https://maps.googleapis.com/maps/api/js?key=&libraries=places`,
@@ -32,7 +32,6 @@ const MyMapComponent = compose(
                 };
                 service.nearbySearch(request, (results, status) => {
                     if (status === google.maps.places.PlacesServiceStatus.OK) {
-                        console.log(results);
                         updatePlaces(results);
                     }
                 })
@@ -40,19 +39,29 @@ const MyMapComponent = compose(
         }
     }),
 )
+
 ((props) => {
     return (
-        <GoogleMap
-            onTilesLoaded={props.fetchPlaces}
-            ref={props.onMapMounted}
-            onBoundsChanged={props.fetchPlaces}
-            defaultZoom={8}
-            defaultCenter={{ lat: props.currentLocation.lat, lng: props.currentLocation.lng }} // now this works
-        >
+        <div>
+            <GoogleMap
+                onTilesLoaded={props.fetchPlaces}
+                ref={props.onMapMounted}
+                onBoundsChanged={props.fetchPlaces}
+                defaultZoom={8}
+                defaultCenter={{ lat: props.currentLocation.lat, lng: props.currentLocation.lng }} // now this works
+            >
+                {props.places && props.places.map((place, i) =>
+
+                    <Marker key={i} position={{ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() }} />
+                )}
+            </GoogleMap> 
             {props.places && props.places.map((place, i) =>
-                <Marker key={i} position={{ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() }} />
+                <div>
+                    {place.name}, {place.vicinity}
+                </div>
             )}
-        </GoogleMap>
+        </div>
+        
     )
 })
 export default MyMapComponent

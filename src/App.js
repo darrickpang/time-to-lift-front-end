@@ -50,6 +50,10 @@ class App extends React.Component {
       .then(res => res.json())
       .then(json => this.coachAuthResponse(json))
     }
+
+    fetch(`http://localhost:3000/gyms`)
+    .then(r => r.json())
+    .then(json => this.setState({gyms: json}))
   }
 
   // Student login and sign-up
@@ -126,7 +130,9 @@ class App extends React.Component {
   }
 
   renderStudentMainContent = () => {
-    return <StudentMainContent student ={this.state.student} token={this.state.token} student_dates={this.state.student_dates} addDate={this.addDate} updateDate={this.updateDate}/>
+    return <StudentMainContent student ={this.state.student} token={this.state.token} 
+    student_dates={this.state.student_dates} addDate={this.addDate} 
+    updateDate={this.updateDate}/>
   }
 
   // Coach sign in or sign up
@@ -140,7 +146,8 @@ class App extends React.Component {
           age: json.coach.data.attributes.age,
           location: json.coach.data.attributes.location
         },
-        coach_token: json.coach_token
+        coach_token: json.coach_token,
+        classes: json.coach.data.attributes.class_sessions
       }, () => this.props.history.push('/coach_main'))
     }
   }
@@ -202,7 +209,8 @@ class App extends React.Component {
   }
 
   renderCoachMainContent = () => {
-    return <CoachMainContent coach ={this.state.coach} allClasses={this.state.classes} coach_token={this.state.coach_token} addClass={this.addClass} updateClass={this.updateClass} gym={this.state.gym}/>
+    return <CoachMainContent coach ={this.state.coach} allClasses={this.state.classes} 
+    coach_token={this.state.coach_token} addClass={this.addClass} updateClass={this.updateClass} addGym={this.addGym} gyms={this.state.gyms}/>
   }
 
   // Classes information 
@@ -229,7 +237,6 @@ class App extends React.Component {
           name: json.name,
           location: json.location,
           duration: json.duration,
-          coach_id: json.coach_id,
           gym_id: json.gym_id
         }]
       })
@@ -254,7 +261,6 @@ class App extends React.Component {
                   name: json.name,
                   location: json.location,
                   duration: json.duration,
-                  coach_id: json.coach_id,
                   gym_id: json.gym_id
             }
             return newClass
@@ -283,7 +289,7 @@ class App extends React.Component {
       this.setState({
         student_dates: [...this.state.student_dates, {
           id: json.id,
-          class_name: json.nclass_ame,
+          class_name: json.class_name,
           date: json.date
         }]
       })
@@ -301,13 +307,12 @@ class App extends React.Component {
     })
     .then(res => res.json())
     .then(json => {
-      let dates = this.state.dates.map(date_info => {
+      let student_dates = this.state.dates.map(date_info => {
         if(date_info.id === json.id){
             let newDate = {
                   id: json.id,
                   class_name: json.class_name,
                   date: json.date,
-
             }
             return newDate
             }
@@ -316,12 +321,35 @@ class App extends React.Component {
             }
         })
         this.setState({
-            dates: dates
+            student_dates: student_dates
     })})
   }
 
+  // gyms
+  addGym = (newGym) => {
+    fetch(`http://localhost:3000/gyms`, {
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+        },
+        body: JSON.stringify(newGym),
+    }) 
+    .then(r => r.json())
+    .then(json => {
+        this.setState({
+          gyms: [...this.state.gyms, {
+            id: json.id,
+            name: json.name,
+            address: json.address,
+            city: json.city,
+            zip_code: json.zip_code
+      }]})
+    })
+}
+
   render(){
-    console.log(this.state.student)
+    // console.log(this.addClass)
     return (
       <div className="App">
         <Switch>

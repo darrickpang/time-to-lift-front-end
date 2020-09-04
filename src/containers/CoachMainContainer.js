@@ -22,14 +22,14 @@ class CoachMainContent extends React.Component {
         )
     }
     render(){
-        let {addClass, updateClass} = this.props
-
+        let {addClass, updateClass, gyms, allClasses, coach} = this.props
+        // console.log(addClass)
         return(
             <div>
                 Coach is logged in
                 {this.renderCoachInfo()}
                 {this.renderLogout()}
-                <CoachNavContainer addClass={addClass} updateClass={updateClass} />
+                <CoachNavContainer addClass={addClass} updateClass={updateClass}  gyms={gyms} allClasses={allClasses} coach={coach}/>
             </div>
         )
     }

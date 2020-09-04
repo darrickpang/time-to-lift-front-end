@@ -1,9 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Button } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import MapContainer from './MapContainer'
 import CoachClassContainer from './CoachClassContainer'
+import CoachCalendar from '../components/CoachCalendar'
 import 'react-infinite-calendar/styles.css' 
 
 class CoachNavContainer extends React.Component {
@@ -26,25 +25,34 @@ class CoachNavContainer extends React.Component {
         )
     }
 
-    renderCoachClassContainer = (classes, gym, addClass, updateClass, coach, allClasses) => {
+    renderCoachClassContainer = (addClass, coach, gyms) => {
         return(
-            <CoachClassContainer classes={classes} gym={gym} addClass={addClass} updateClass={updateClass} coach={coach} allClasses={allClasses}/>
+            <CoachClassContainer addClass={addClass} coach={coach} gyms={gyms}/>
         )
     }
 
-    renderSidenavOptions = (classes, gym, addClass, updateClass, coach, allClasses) => {
+    renderCoachCalendar = () => {
+        return(
+            <CoachCalendar allClasses={this.props.allClasses}/>
+        )
+        
+    }
+
+    renderSidenavOptions = (addClass, coach, gyms) => {
         return (
             <div className="sidenav-options">
                {this.renderMap()}
-               {this.renderCoachClassContainer(classes, gym, addClass, updateClass, coach, allClasses)}
+               {this.renderCoachClassContainer(addClass, coach, gyms)}
+               {this.renderCoachCalendar()}
             </div>
         )
     }
 
     render(){
+        // console.log(this.props.addClass)
         return(
             <div className="sidenav-container">
-                {this.renderSidenavOptions()}
+                {this.renderSidenavOptions(this.props.addClass, this.props.coach, this.props.gyms)}
             </div>
         )}
     }

@@ -5,15 +5,14 @@ export default class CoachClassContainer extends Component {
     state = {
         id: null, 
         name: '',
-        location: '',
+        date: '',
+        time: '',
         duration: '',
-        coach_id: null,
         gym_id: null,
         classAdd: true
     }
     
     handleOnChange = (e) => {
-        console.log(e.target.name)
         this.setState({
             [e.target.name]: e.target.value
         })
@@ -21,33 +20,12 @@ export default class CoachClassContainer extends Component {
 
     handleSubmit = (e, addClass, updateClass) => {
         e.preventDefault()
-        let class_info = {
-            name: this.state.name,
-            location: this.state.location,
-            duration: this.state.duration,
-            coach_id: this.state.coach_id,
-            gym_id: this.state.gym_id
-        }
-        this.state.classAdd ? addClass(class_info) : updateClass(this.state.id, class_info)
-        this.setState({
-            id: null,
-            name: '',
-            location: '',
-            duration: '',
-            coach_id: null,
-            gym_id: null,
-            classAdd: true
-        })
-        e.target.reset()
-    }
-
-    handleSubmit = (e, addClass, updateClass) => {
-        e.preventDefault()
-        let {name, duration, location, gym_id, coach_id} = this.state
-        if(name !== null && location !== null && duration !== null && gym_id !== null && coach_id !== null){
+        let {name, duration, date, time, gym_id} = this.state
+        if(name !== null && time !== null && date !== null && duration !== null && gym_id !== null){
             let class_info = {
                 name: name,
-                location: location,
+                time: time,
+                date: date,
                 duration: duration,
                 gym_id: parseInt(gym_id),
                 coach_id: parseInt(this.props.coach.id)
@@ -62,10 +40,10 @@ export default class CoachClassContainer extends Component {
             // reset state
             this.setState({
                 id: null,
-                name: '',
-                location: '',
-                duration: '',
-                coach_id: null,
+                name: null,
+                time: null,
+                date: null,
+                duration: null,
                 gym_id: null,
                 classAdd: true
             })
@@ -80,10 +58,10 @@ export default class CoachClassContainer extends Component {
         if(selectedValue === "n/a"){
             this.setState({
                 id: null,
-                name: '',
-                location: '',
-                duration: '',
-                coach_id: null,
+                name: null,
+                time: null,
+                date: null, 
+                duration: null,
                 gym_id: null,
                 classAdd: true
             })
@@ -93,29 +71,46 @@ export default class CoachClassContainer extends Component {
             this.setState({
                 id: class_info.id,
                 name: class_info.name,
-                location: class_info.location,
+                date: class_info.date,
+                time: class_info.time, 
                 duration: class_info.duration,
-                coach_id: class_info.coach_id,
                 gym_id: class_info.gym_id,
                 classAdd: false
             })
         }
     }
 
+    handleGymDropdownChange = (e) => {
+        if(e.target.value !== "n/a"){
+            this.setState({gym_id: parseInt(e.target.value)})
+        }
+    }
+
     generateClassDropdownOptions = (classes) => {
         return classes.map(class_info => {
-            return <option id={class_info.id} key={class_info.id} value={class_info.id}>{class_info.activity}</option>
+            return <option id={class_info.id} key={class_info.id} value={class_info.id}>{class_info.name}</option>
+        })
+    }
+
+    generateGymDropdownOptions = (gyms) => {
+        return gyms.map(gym => {
+            if(gym.id === this.state.gym_id){
+                return <option id={gym.id} key={gym.id} value={gym.id} selected>{gym.name}, {gym.address}</option>
+            }
+            else{
+                return <option id={gym.id} key={gym.id} value={gym.id}>{gym.name}</option>
+            }
         })
     }
 
     render(){
-        let {classes, addClass, updateClass} = this.props
-        // console.log(this.props)
+        let {gyms, addClass, updateClass} = this.props
+        // console.log(this.props.addClass)
         return(
             <div>
                 Coach class container
                 <CardBody>
-                    <Form onSubmit={(e) => this.handleSubmit(e, addClass, updateClass)}>
+                    <Form onSubmit={(e) => this.handleSubmit(e, gyms, addClass, updateClass)}>
                         <Row form>
                             <Col md={6}>
                                 <FormGroup>
@@ -124,7 +119,12 @@ export default class CoachClassContainer extends Component {
                             </Col>
                             <Col md={6}>
                                 <FormGroup>
-                                    <Input type="text" name="location" id="location" placeholder="Class location" value={this.state.location} onChange={this.handleOnChange}/>
+                                    <Input type="text" name="time" id="time" placeholder="Class time" value={this.state.time} onChange={this.handleOnChange}/>
+                                </FormGroup>
+                            </Col>
+                            <Col md={6}>
+                                <FormGroup>
+                                    <Input type="text" name="date" id="date" placeholder="Class date" value={this.state.date} onChange={this.handleOnChange}/>
                                 </FormGroup>
                             </Col>
                             <Col md={6}>
@@ -134,13 +134,12 @@ export default class CoachClassContainer extends Component {
                             </Col>
                         </Row>
                     
-                        <FormGroup onChange={(e) => this.autoFillForm(e.target.value, classes)}>
-                            <Label for="edit-habit">(optional) edit a class</Label>
-                                <Input type="select" name="selectMulti" id="edit-habit">
-                                    <option value={"n/a"}>n/a</option>
-                                    {classes ? this.generateClassesDropdownOptions(classes) : false}
-                                </Input>
-                        </FormGroup>
+                        <FormGroup onChange={this.handleGymDropdownChange}>
+                            <Input type="select" name="select" id="edit-goal">
+                                <option value={"n/a"}>Select gym</option>
+                                {gyms ? this.generateGymDropdownOptions(gyms) : false}
+                            </Input>
+                    </FormGroup>
                         <Button>Submit</Button>
                     </Form> 
                 </CardBody>
