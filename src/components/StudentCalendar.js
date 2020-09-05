@@ -77,24 +77,13 @@ export default class MyCalendar extends Component {
         }
     }
 
-    generateClassDropdownOptions = (classes) => {
-        return classes.map(class_info => {
-            return <option id={class_info.id} key={class_info.id} value={class_info.id}>
-                    {class_info.attributes.name}, {class_info.attributes.date},  
-                    {class_info.attributes.time}, {class_info.attributes.duration},  
-                    {class_info.attributes.coach.name}
-                </option>
-            }
-        )
-    }
-
     render() {
         let {addDate, updateDate, classes} = this.props
         // console.log(classes[0])
         if (!classes) {
             return <span>Loading...</span>;
         }
-        console.log(classes[0].attributes)
+        // console.log(classes[0].attributes)
         return (
             <div>
                 
@@ -116,12 +105,7 @@ export default class MyCalendar extends Component {
                         <Button>Submit</Button>
                     </Form> 
                 </CardBody>
-                <FormGroup onChange={this.handleClassDropdownChange}>
-                            <Input type="select" name="select" id="edit-goal">
-                                <option value={"n/a"}>Select class</option>
-                                {classes ? this.generateClassDropdownOptions(classes) : false}
-                            </Input>
-                    </FormGroup>
+                
                 <FullCalendar
                     plugins={[ dayGridPlugin ]}
                     defaultView="dayGridMonth"

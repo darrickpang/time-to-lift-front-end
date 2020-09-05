@@ -22,6 +22,7 @@ class App extends React.Component {
       location: ""
     },
     student_dates: [],
+    class_lists: [],
     classes: [],
     gyms: [],
     token: "",
@@ -137,7 +138,7 @@ class App extends React.Component {
   renderStudentMainContent = () => {
     return <StudentMainContent student ={this.state.student} token={this.state.token} 
             student_dates={this.state.student_dates} addDate={this.addDate} classes={this.state.classes.data}
-            updateDate={this.updateDate}
+            updateDate={this.updateDate} addNewClass={this.addNewClass}
           />
   }
 
@@ -325,6 +326,28 @@ class App extends React.Component {
         this.setState({
             student_dates: student_dates
     })})
+  }
+
+  // add new class 
+  addNewClass= (newClass) => {
+    fetch(`http://localhost:3000/class_lists`, {
+      method: 'POST', 
+      headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+      },
+      body: JSON.stringify(newClass),
+  }) 
+  .then(r => r.json())
+  .then(json => {
+      this.setState({
+        class_lists: [...this.state.class_lists, {
+          id: json.id,
+          student_name: json.student_name,
+          class_session_id: json.class_session_id
+        }]
+      })
+    })
   }
 
   // gyms
