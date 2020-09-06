@@ -18,7 +18,8 @@ export default class MyCalendar extends Component {
         id: null, 
         class_name: null,
         date: null,
-        dateAdd: true
+        dateAdd: true,
+        deleteDate: false
     }
     
     handleOnChange = (e) => {
@@ -27,7 +28,7 @@ export default class MyCalendar extends Component {
         })
     }
 
-    handleSubmit = (e, addDate, updateDate) => {
+    handleSubmit = (e, addDate, updateDate, deleteDate) => {
         e.preventDefault()
         let {class_name, date} = this.state
         if(class_name !== null && date !== null){
@@ -40,16 +41,21 @@ export default class MyCalendar extends Component {
             if(this.state.dateAdd){
                 addDate(date_info)
             } 
-            else if(!this.state.dateAdd && e.target.name === "submit"){
+            else if(!this.state.dateAdd && e.target[4].innerText === "Update"){
                 updateDate(this.state.id, date_info)
+            }
+            else {
+                deleteDate(this.state.id, date_info)
             }
             // reset state
             this.setState({
                 id: null,
                 class_name: null,
                 date: null,
-                dateAdd: true
+                dateAdd: true,
+                deleteDate: false
             })
+            console.log(e.target[4].innerText)
             e.target.parentElement.children[0].reset()
         }
         else{
@@ -63,7 +69,8 @@ export default class MyCalendar extends Component {
                 id: null,
                 class_name: null,
                 date: null,
-                dateAdd: true
+                dateAdd: true,
+                deleteDate: false
             })
         }
         else{
@@ -72,21 +79,29 @@ export default class MyCalendar extends Component {
                 id: date_info.id,
                 class_name: date_info.class_name,
                 date: date_info.date,
-                dateAdd: false
+                dateAdd: false,
+                deleteDate: true
             })
         }
     }
 
+    generateDateDropdownOptions = (student_dates) => {
+        return student_dates.map(date => {
+            return <option id={date.id} key={date.id} value={date.id}>
+                    {date.date}, {date.class_name}
+                </option>
+            }
+        )
+    }
+
     render() {
-        let {addDate, updateDate, classes} = this.props
+        let {addDate, updateDate, deleteDate, classes, student_dates} = this.props
         // console.log(classes[0])
         if (!classes) {
             return <span>Loading...</span>;
         }
-        // console.log(classes[0].attributes)
         return (
             <div>
-                
                 <CardBody>
                     <Form onSubmit={(e) => this.handleSubmit(e, addDate, updateDate)}>
                         <Row form>
@@ -100,9 +115,17 @@ export default class MyCalendar extends Component {
                                     <Input type="text" name="date" id="date" placeholder="Class date" value={this.state.date} onChange={this.handleOnChange}/>
                                 </FormGroup>
                             </Col>
-                            
                         </Row>
+                        <FormGroup onChange={(e) => this.autoFillForm(e.target.value, student_dates)}>
+                            <Label for="edit-schedule">Change schedule</Label>
+                            <Input type="select" name="select" id="edit-schedule">
+                                <option value={"n/a"}>n/a</option>
+                                {student_dates ? this.generateDateDropdownOptions(student_dates) : false}
+                            </Input>
+                        </FormGroup>
                         <Button>Submit</Button>
+                        <Button onSubmit={(e) => this.handleSubmit(e, updateDate)}>Update</Button>
+                        <Button onSubmit={(e) => this.handleSubmit(e, deleteDate)}>Delete</Button>
                     </Form> 
                 </CardBody>
                 

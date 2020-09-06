@@ -74,7 +74,7 @@ export default class NewClassSchedule extends Component {
             return <option id={class_info.id} key={class_info.id} value={class_info.id}>
                     {class_info.attributes.name}, {class_info.attributes.date},  
                     {class_info.attributes.time}, {class_info.attributes.duration},  
-                    {class_info.attributes.coach.student_name}
+                    {class_info.attributes.coach.name}
                 </option>
             }
         )

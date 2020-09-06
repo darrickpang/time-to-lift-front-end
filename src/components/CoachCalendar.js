@@ -44,7 +44,6 @@ export default class CoachCalendar extends Component {
                     events={this.dates()}
                 />
             </div>
-            
         )
     }
 }

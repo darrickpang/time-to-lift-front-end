@@ -138,7 +138,7 @@ class App extends React.Component {
   renderStudentMainContent = () => {
     return <StudentMainContent student ={this.state.student} token={this.state.token} 
             student_dates={this.state.student_dates} addDate={this.addDate} classes={this.state.classes.data}
-            updateDate={this.updateDate} addNewClass={this.addNewClass}
+            updateDate={this.updateDate} addNewClass={this.addNewClass} deleteDate={this.deleteDate}
           />
   }
 
@@ -326,6 +326,24 @@ class App extends React.Component {
         this.setState({
             student_dates: student_dates
     })})
+  }
+
+  deleteDate = (id, date) => {
+    fetch(`http://localhost:3000/student_dates/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      }
+    }) 
+    .then(r => r.json())
+    .then(json => {
+      console.log(json)
+      let student_dates = this.state.student_dates.filter(date => date.id !== id)
+      this.setState({
+        student_dates: student_dates
+      })
+    })
   }
 
   // add new class 
