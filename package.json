@@ -6,6 +6,7 @@
     "@codious/ngx-google-places-autocomplete": "^1.1.0",
     "@fullcalendar/core": "^5.3.0",
     "@fullcalendar/daygrid": "^5.3.0",
+    "@fullcalendar/interaction": "^5.3.1",
     "@fullcalendar/premium-common": "^5.3.0",
     "@fullcalendar/react": "^5.3.0",
     "@fullcalendar/resource-timeline": "^5.3.0",

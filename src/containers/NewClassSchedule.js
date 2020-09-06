@@ -90,7 +90,7 @@ export default class NewClassSchedule extends Component {
                         <Row form>
                             <Col md={6}>
                                 <FormGroup>
-                                    <Input type="text" name="student_name" id="student_name" placeholder="Student name" value={this.state.student_name} onChange={this.handleOnChange}/>
+                                    <Input type="text" name="student_name" id="student_name" placeholder="Student name" value={this.props.student.name} onChange={this.handleOnChange}/>
                                 </FormGroup>
                             </Col>
                         </Row>
