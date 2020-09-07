@@ -310,6 +310,7 @@ class App extends React.Component {
     })
     .then(res => res.json())
     .then(json => {
+      console.log('updated')
       let student_dates = this.state.student_dates.map(date_info => {
         if(date_info.id === json.id){
             let newDate = {
@@ -335,7 +336,7 @@ class App extends React.Component {
     }) 
     .then(r => r.json())
     .then(json => {
-      console.log(json)
+      console.log('deleted')
       let student_dates = this.state.student_dates.filter(date => date.id !== id)
       this.setState({
         student_dates: student_dates

@@ -18,13 +18,15 @@ export default class MyCalendar extends Component {
         id: null, 
         class_name: null,
         date: null,
-        dateAdd: true
+        dateAdd: true,
+        deleteDate: false
     }
     
     handleOnChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
         })
+        console.log(e.target.name)
     }
 
     handleSubmit = (e, addDate, updateDate, deleteDate) => {
@@ -40,7 +42,7 @@ export default class MyCalendar extends Component {
             if(this.state.dateAdd){
                 addDate(date_info)
             } 
-            else if(!this.state.dateAdd && e.target[4].innerText === "Update schedule"){
+            else if(!this.state.dateAdd && e.target.name === "update"){
                 updateDate(this.state.id, date_info)
             }
             else {
@@ -51,9 +53,10 @@ export default class MyCalendar extends Component {
                 id: null,
                 class_name: null,
                 date: null,
-                dateAdd: true
+                dateAdd: true,
+                deleteDate: false
             })
-            e.target.parentElement.children[0].reset()
+            e.target.parentElement.reset()
         }
         else{
             alert("You must include a class name and date to create a new schedule.")
@@ -66,16 +69,18 @@ export default class MyCalendar extends Component {
                 id: null,
                 class_name: null,
                 date: null,
-                dateAdd: true
+                dateAdd: true,
+                deleteDate: false
             })
         }
         else{
-            let date_info = dates.find(date_info => date_info.id == selectedValue)
+            let find_date = dates.find(date_info => date_info.id == selectedValue)
             this.setState({
-                id: date_info.id,
-                class_name: date_info.class_name,
-                date: date_info.date,
-                dateAdd: false
+                id: find_date.id,
+                class_name: find_date.class_name,
+                date: find_date.date,
+                dateAdd: false,
+                deleteDate: true
             })
         }
     }
@@ -91,15 +96,13 @@ export default class MyCalendar extends Component {
 
     render() {
         let {addDate, updateDate, deleteDate, classes, student_dates} = this.props
-        // console.log(classes[0])
         if (!classes) {
             return <span>Loading...</span>;
         }
-        // console.log(this.props)
         return (
             <div>
                 <CardBody>
-                    <Form onSubmit={(e) => this.handleSubmit(e, addDate, updateDate, deleteDate)}>
+                    <Form>
                         <Row form>
                             <Col md={6}>
                                 <FormGroup>
@@ -115,13 +118,14 @@ export default class MyCalendar extends Component {
                         <FormGroup onChange={(e) => this.autoFillForm(e.target.value, student_dates)}>
                             <Label for="edit-schedule">Change schedule</Label>
                             <Input type="select" name="select" id="edit-schedule">
-                                <option value={"n/a"}>n/a</option>
+                                <option value={"n/a"}>Select schedule</option>
                                 {student_dates ? this.generateDateDropdownOptions(student_dates) : false}
                             </Input>
                         </FormGroup>
-                        <Button>Add schedule</Button>
-                        <Button onSubmit={(e) => this.handleSubmit(e, updateDate)}>Update schedule</Button>
-                        <Button onSubmit={(e) => this.handleSubmit(e, deleteDate)}>Delete schedule</Button>
+                        <Button name="update" onClick={(e) => this.handleSubmit(e, addDate, updateDate, deleteDate)}>Add or update schedule</Button>
+                        {this.state.deleteDate ? 
+                            <Button onClick={(e) => this.handleSubmit(e, addDate, updateDate, deleteDate)}>Delete Schedule</Button> : false
+                        }
                     </Form> 
                 </CardBody>
                 <FullCalendar

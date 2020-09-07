@@ -41,8 +41,6 @@ class StudentNavContainer extends React.Component {
                {this.renderMap()}
                {this.renderNewSchedule(addNewClass, student)}
                {this.renderCalendar(addDate, updateDate, deleteDate, student)}
-               
-
             </div>
         )
     }
