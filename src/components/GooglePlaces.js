@@ -43,18 +43,20 @@ const MyMapComponent = compose(
 ((props) => {
     return (
         <div>
-            <GoogleMap
-                onTilesLoaded={props.fetchPlaces}
-                ref={props.onMapMounted}
-                onBoundsChanged={props.fetchPlaces}
-                defaultZoom={8}
-                defaultCenter={{ lat: props.currentLocation.lat, lng: props.currentLocation.lng }} // now this works
-            >
+            <div>
+                <GoogleMap
+                    onTilesLoaded={props.fetchPlaces}
+                    ref={props.onMapMounted}
+                    onBoundsChanged={props.fetchPlaces}
+                    defaultZoom={8}
+                    defaultCenter={{ lat: props.currentLocation.lat, lng: props.currentLocation.lng }} // now this works
+                >
                 {props.places && props.places.map((place, i) =>
 
                     <Marker key={i} position={{ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() }} />
                 )}
-            </GoogleMap> 
+                </GoogleMap> 
+            </div>
             {props.places && props.places.map((place, i) =>
                 <div>
                     {place.name}, {place.vicinity}

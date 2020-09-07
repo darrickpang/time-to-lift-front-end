@@ -34,7 +34,7 @@ class CoachNavContainer extends React.Component {
 
     renderCoachCalendar = () => {
         return(
-            <CoachCalendar allClasses={this.props.allClasses}/>
+            <CoachCalendar allClasses={this.props.allClasses} coach={this.props.coach} coach_classes={this.props.coach_classes}/>
         )
         
     }
@@ -57,7 +57,6 @@ class CoachNavContainer extends React.Component {
     }
 
     render(){
-        // console.log(this.props.addClass)
         return(
             <div className="sidenav-container">
                 {this.renderSidenavOptions(this.props.addClass, this.props.coach, this.props.gyms)}

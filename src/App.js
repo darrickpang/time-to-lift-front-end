@@ -23,6 +23,7 @@ class App extends React.Component {
     },
     student_dates: [],
     class_lists: [],
+    coach_classes: [],
     classes: [],
     gyms: [],
     token: "",
@@ -154,7 +155,7 @@ class App extends React.Component {
           location: json.coach.data.attributes.location
         },
         coach_token: json.coach_token,
-        classes: json.coach.data.attributes.class_sessions
+        coach_classes: json.coach.data.attributes.class_sessions
       }, () => this.props.history.push('/coach_main'))
     }
   }
@@ -216,7 +217,7 @@ class App extends React.Component {
   }
 
   renderCoachMainContent = () => {
-    return <CoachMainContent coach ={this.state.coach} allClasses={this.state.classes} 
+    return <CoachMainContent coach ={this.state.coach} allClasses={this.state.classes} coach_classes = {this.state.coach_classes}
     coach_token={this.state.coach_token} addClass={this.addClass} updateClass={this.updateClass} addGym={this.addGym} gyms={this.state.gyms}/>
   }
 
