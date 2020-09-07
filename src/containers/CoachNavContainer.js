@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import MapContainer from './MapContainer'
 import CoachClassContainer from './CoachClassContainer'
 import CoachCalendar from '../components/CoachCalendar'
+import GymContainer from './GymContainer'
 import 'react-infinite-calendar/styles.css' 
 
 class CoachNavContainer extends React.Component {
@@ -38,11 +39,18 @@ class CoachNavContainer extends React.Component {
         
     }
 
+    renderGyms = () => {
+        return(
+            <GymContainer addGym={this.props.addGym}/>
+        )
+    }
+
     renderSidenavOptions = (addClass, coach, gyms) => {
         return (
             <div className="sidenav-options">
                {this.renderMap()}
                {this.renderCoachClassContainer(addClass, coach, gyms)}
+               {this.renderGyms()}
                {this.renderCoachCalendar()}
             </div>
         )

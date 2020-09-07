@@ -18,8 +18,7 @@ export default class MyCalendar extends Component {
         id: null, 
         class_name: null,
         date: null,
-        dateAdd: true,
-        deleteDate: false
+        dateAdd: true
     }
     
     handleOnChange = (e) => {
@@ -41,7 +40,7 @@ export default class MyCalendar extends Component {
             if(this.state.dateAdd){
                 addDate(date_info)
             } 
-            else if(!this.state.dateAdd && e.target[4].innerText === "Update"){
+            else if(!this.state.dateAdd && e.target[4].innerText === "Update schedule"){
                 updateDate(this.state.id, date_info)
             }
             else {
@@ -52,10 +51,8 @@ export default class MyCalendar extends Component {
                 id: null,
                 class_name: null,
                 date: null,
-                dateAdd: true,
-                deleteDate: false
+                dateAdd: true
             })
-            console.log(e.target[4].innerText)
             e.target.parentElement.children[0].reset()
         }
         else{
@@ -69,8 +66,7 @@ export default class MyCalendar extends Component {
                 id: null,
                 class_name: null,
                 date: null,
-                dateAdd: true,
-                deleteDate: false
+                dateAdd: true
             })
         }
         else{
@@ -79,8 +75,7 @@ export default class MyCalendar extends Component {
                 id: date_info.id,
                 class_name: date_info.class_name,
                 date: date_info.date,
-                dateAdd: false,
-                deleteDate: true
+                dateAdd: false
             })
         }
     }
@@ -100,10 +95,11 @@ export default class MyCalendar extends Component {
         if (!classes) {
             return <span>Loading...</span>;
         }
+        // console.log(this.props)
         return (
             <div>
                 <CardBody>
-                    <Form onSubmit={(e) => this.handleSubmit(e, addDate, updateDate)}>
+                    <Form onSubmit={(e) => this.handleSubmit(e, addDate, updateDate, deleteDate)}>
                         <Row form>
                             <Col md={6}>
                                 <FormGroup>
@@ -123,12 +119,11 @@ export default class MyCalendar extends Component {
                                 {student_dates ? this.generateDateDropdownOptions(student_dates) : false}
                             </Input>
                         </FormGroup>
-                        <Button>Submit</Button>
-                        <Button onSubmit={(e) => this.handleSubmit(e, updateDate)}>Update</Button>
-                        <Button onSubmit={(e) => this.handleSubmit(e, deleteDate)}>Delete</Button>
+                        <Button>Add schedule</Button>
+                        <Button onSubmit={(e) => this.handleSubmit(e, updateDate)}>Update schedule</Button>
+                        <Button onSubmit={(e) => this.handleSubmit(e, deleteDate)}>Delete schedule</Button>
                     </Form> 
                 </CardBody>
-                
                 <FullCalendar
                     plugins={[ dayGridPlugin ]}
                     defaultView="dayGridMonth"

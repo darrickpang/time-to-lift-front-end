@@ -310,12 +310,13 @@ class App extends React.Component {
     })
     .then(res => res.json())
     .then(json => {
-      let student_dates = this.state.dates.map(date_info => {
+      let student_dates = this.state.student_dates.map(date_info => {
         if(date_info.id === json.id){
             let newDate = {
                   id: json.id,
                   class_name: json.class_name,
                   date: json.date,
+                  student_id: json.student_id
             }
             return newDate
             }
@@ -330,11 +331,7 @@ class App extends React.Component {
 
   deleteDate = (id, date) => {
     fetch(`http://localhost:3000/student_dates/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      }
+      method: 'DELETE'
     }) 
     .then(r => r.json())
     .then(json => {

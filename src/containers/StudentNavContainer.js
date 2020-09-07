@@ -31,7 +31,7 @@ class StudentNavContainer extends React.Component {
 
     renderCalendar = (addDate, updateDate, deleteDate, student) => {
         return(
-            <MyCalendar student_dates={this.props.dates} classes={this.props.classes} addDate={addDate} updateDate={updateDate} deleteDate={deleteDate}student={student} />
+            <MyCalendar student_dates={this.props.dates} classes={this.props.classes} addDate={addDate} updateDate={updateDate} deleteDate={deleteDate} student={student} />
         )
     }
 

@@ -23,7 +23,7 @@ class StudentMainContent extends React.Component {
         )
     }
     render(){
-        let {addDate, updateDate, student, classes, addNewClass, deleteDate} = this.props
+        let {addDate, updateDate, deleteDate, student, classes, addNewClass} = this.props
         return(
             <div>
                 Student is logged in
