@@ -101,3 +101,22 @@ li a {
 li a:hover {
   background-color: #111;
 }
+
+.my-modal  {
+  height: 30%; 
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+
+  border-color: rgb(23, 121, 220);
+}
+
+.my-modal a {
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  background-color: rgb(76, 101, 132) !important;
+  border-color: #fff !important;
+}
+
+.my-modal a:hover {
+  color: #66FCF1;
+}

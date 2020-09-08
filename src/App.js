@@ -26,6 +26,8 @@ class App extends React.Component {
     coach_classes: [],
     classes: [],
     gyms: [],
+    friend_requests: [],
+    student_names: [],
     token: "",
     coach_token: ""
   }
@@ -61,6 +63,11 @@ class App extends React.Component {
     fetch('http://localhost:3000/class_sessions')
     .then(res => res.json())
     .then(json => this.setState({classes: json}))
+
+    //all student names 
+    fetch('http://localhost:3000/students')
+    .then(res => res.json())
+    .then(json => this.setState({student_names: json}))
   }
 
   // Student login and sign-up
@@ -140,6 +147,8 @@ class App extends React.Component {
     return <StudentMainContent student ={this.state.student} token={this.state.token} 
             student_dates={this.state.student_dates} addDate={this.addDate} classes={this.state.classes.data}
             updateDate={this.updateDate} addNewClass={this.addNewClass} deleteDate={this.deleteDate}
+            postFriendRequests={this.postFriendRequests} handleAccept={this.handleAccept} handleDelete={this.handleDelete}
+            student_names = {this.state.student_names}
           />
   }
 
@@ -354,9 +363,9 @@ class App extends React.Component {
           Accept: 'application/json'
       },
       body: JSON.stringify(newClass),
-  }) 
-  .then(r => r.json())
-  .then(json => {
+    }) 
+    .then(r => r.json())
+    .then(json => {
       this.setState({
         class_lists: [...this.state.class_lists, {
           id: json.id,
@@ -388,9 +397,58 @@ class App extends React.Component {
             zip_code: json.zip_code
       }]})
     })
-}
+  }
+
+  // Friend requests
+  postFriendRequests = (e, student, target) => {
+    console.log(student)
+    console.log(target)
+    fetch(`http://localhost:3000/friend_requests`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        requestor_id: student.id,
+        receiver_id: target,
+        status: 'pending'
+      })
+    })
+    .then(r => r.json())
+    .then(json => {
+      this.setState({
+        friend_requests: [...this.state.friend_requests, {
+          requestor_id: student.id,
+          receiver_id: target,
+          status: 'pending'
+        }]
+      })
+    })
+  }
+
+  handleAccept = (e, target) => {
+    fetch(`http://localhost:3000/friend_requests/${target}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        id: target,
+        status: 'accepted'
+      })
+    })
+  }
+
+  handleDelete = (target) => {
+    fetch(`http://localhost:3000/friend_requests/${target.id}`, {
+      method: 'DELETE'
+    })
+  }
 
   render(){
+    console.log(this.state.friend_requests)
     return (
       <div className="App">
         <Switch>

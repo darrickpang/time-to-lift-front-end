@@ -5,15 +5,15 @@ import MyCalendar from '../components/StudentCalendar'
 import NewClassSchedule from './NewClassSchedule'
 
 class StudentNavContainer extends React.Component {
-    state = {
-        modalShow: false
-    }
+    // state = {
+    //     modalShow: false
+    // }
 
-    showModal = () => {
-        this.setState({
-            modalShow: !this.state.modalShow
-        })
-    }
+    // showModal = () => {
+    //     this.setState({
+    //         modalShow: !this.state.modalShow
+    //     })
+    // }
 
     renderMap = () => {
         return(
@@ -33,7 +33,7 @@ class StudentNavContainer extends React.Component {
     renderCalendar = (addDate, updateDate, deleteDate, student) => {
         return(
             <MyCalendar student_dates={this.props.dates} classes={this.props.classes} 
-                addDate={addDate} updateDate={updateDate} deleteDate={deleteDate} student={student} show={this.state.modalShow}
+                addDate={addDate} updateDate={updateDate} deleteDate={deleteDate} student={student} show={this.props.show}
             />
         )
     }
@@ -43,7 +43,7 @@ class StudentNavContainer extends React.Component {
             <div className="sidenav-options">
                 <ul>
                     <li><a class="active" href="#home">Home</a></li>
-                    <li><a href="#news" onClick={this.showModal}>Calendar</a></li>
+                    {/* <li><a href="#news" onClick={this.showModal}>Calendar</a></li> */}
                     <li><a href="#contact">Test</a></li>
                     <li><a href="#about">About</a></li>
                 </ul>

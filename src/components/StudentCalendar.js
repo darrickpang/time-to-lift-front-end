@@ -102,7 +102,7 @@ export default class MyCalendar extends Component {
         }
         return (
             <div>
-                <Modal show={show}>
+                {/* <Modal show={show} className='my-modal'> */}
                     <CardBody>
                         <Form>
                             <Row form>
@@ -135,7 +135,7 @@ export default class MyCalendar extends Component {
                         defaultView="dayGridMonth"
                         events={this.dates()}
                     />
-                </Modal>
+                {/* </Modal> */}
             </div>
         )
     }
