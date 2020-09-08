@@ -1,7 +1,8 @@
 import React from 'react';
-import {  withRouter } from 'react-router-dom';
+import {  withRouter, BrowserRouter as Router, Route } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import StudentNavContainer from './StudentNavContainer'
+import MyCalendar from '../components/StudentCalendar'
 import 'react-infinite-calendar/styles.css' // only needs to be imported once
 
 class StudentMainContent extends React.Component {

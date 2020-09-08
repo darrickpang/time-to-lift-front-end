@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import {CardBody, Button, Form, Input, FormGroup, Row, Col, Label} from 'reactstrap'
+import Modal from 'react-bootstrap/Modal'
 // import interactionPlugin from "@fullcalendar/interaction";
 export default class MyCalendar extends Component {
 
@@ -95,44 +96,46 @@ export default class MyCalendar extends Component {
     }
 
     render() {
-        let {addDate, updateDate, deleteDate, classes, student_dates} = this.props
+        let {addDate, updateDate, deleteDate, classes, student_dates, show} = this.props
         if (!classes) {
             return <span>Loading...</span>;
         }
         return (
             <div>
-                <CardBody>
-                    <Form>
-                        <Row form>
-                            <Col md={6}>
-                                <FormGroup>
-                                    <Input type="text" name="class_name" id="class_name" placeholder="Class name" value={this.state.class_name} onChange={this.handleOnChange}/>
-                                </FormGroup>
-                            </Col>
-                            <Col md={6}>
-                                <FormGroup>
-                                    <Input type="text" name="date" id="date" placeholder="Class date" value={this.state.date} onChange={this.handleOnChange}/>
-                                </FormGroup>
-                            </Col>
-                        </Row>
-                        <FormGroup onChange={(e) => this.autoFillForm(e.target.value, student_dates)}>
-                            <Label for="edit-schedule">Change schedule</Label>
-                            <Input type="select" name="select" id="edit-schedule">
-                                <option value={"n/a"}>Select schedule</option>
-                                {student_dates ? this.generateDateDropdownOptions(student_dates) : false}
-                            </Input>
-                        </FormGroup>
-                        <Button name="update" onClick={(e) => this.handleSubmit(e, addDate, updateDate, deleteDate)}>Add or update schedule</Button>
-                        {this.state.deleteDate ? 
-                            <Button onClick={(e) => this.handleSubmit(e, addDate, updateDate, deleteDate)}>Delete Schedule</Button> : false
-                        }
-                    </Form> 
-                </CardBody>
-                <FullCalendar
-                    plugins={[ dayGridPlugin ]}
-                    defaultView="dayGridMonth"
-                    events={this.dates()}
-                />
+                <Modal show={show}>
+                    <CardBody>
+                        <Form>
+                            <Row form>
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <Input type="text" name="class_name" id="class_name" placeholder="Class name" value={this.state.class_name} onChange={this.handleOnChange}/>
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <Input type="text" name="date" id="date" placeholder="Class date" value={this.state.date} onChange={this.handleOnChange}/>
+                                    </FormGroup>
+                                </Col>
+                            </Row>
+                            <FormGroup onChange={(e) => this.autoFillForm(e.target.value, student_dates)}>
+                                <Label for="edit-schedule">Change schedule</Label>
+                                <Input type="select" name="select" id="edit-schedule">
+                                    <option value={"n/a"}>Select schedule</option>
+                                    {student_dates ? this.generateDateDropdownOptions(student_dates) : false}
+                                </Input>
+                            </FormGroup>
+                            <Button name="update" onClick={(e) => this.handleSubmit(e, addDate, updateDate, deleteDate)}>Add or update schedule</Button>
+                            {this.state.deleteDate ? 
+                                <Button onClick={(e) => this.handleSubmit(e, addDate, updateDate, deleteDate)}>Delete Schedule</Button> : false
+                            }
+                        </Form> 
+                    </CardBody>
+                    <FullCalendar
+                        plugins={[ dayGridPlugin ]}
+                        defaultView="dayGridMonth"
+                        events={this.dates()}
+                    />
+                </Modal>
             </div>
         )
     }
