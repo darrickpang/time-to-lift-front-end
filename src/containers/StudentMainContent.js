@@ -47,6 +47,28 @@ class StudentMainContent extends React.Component {
         })
     }
 
+    renderFriendRequests = () => {
+        return this.props.friend_requests_as_receiver.map(name => {
+            if(name.status === 'pending'){
+                return(
+                    <div>
+                        {name.requestor_name}
+                        <button onClick={(e) => this.props.handleAccept(e, name.id)}>Accept</button>
+                    </div>
+                )
+            }
+            else{
+                return(
+                    <div>
+                        Friends: {name.requestor_name}
+                    </div>
+                )
+            }
+                
+            
+        })
+    }
+
     render(){
         let {addDate, updateDate, deleteDate, student, classes, addNewClass} = this.props
         return(
@@ -59,12 +81,14 @@ class StudentMainContent extends React.Component {
                 </ul>
                 {this.renderUserInfo()}
                 {this.renderLogout()} 
+                Friend suggestions:
                 {this.renderNames()}
+                Waiting:
+                {this.renderFriendRequests()}
                 <StudentNavContainer dates={this.props.student_dates} addDate={addDate} updateDate={updateDate} 
                     student={student} classes={classes} addNewClass={addNewClass} deleteDate={deleteDate} show={this.state.modalShow}
                 />
             </div>
-            
         )
     }
 }

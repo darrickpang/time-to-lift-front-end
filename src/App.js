@@ -28,6 +28,7 @@ class App extends React.Component {
     gyms: [],
     friend_requests: [],
     student_names: [],
+    friend_requests_as_receiver: [],
     token: "",
     coach_token: ""
   }
@@ -82,6 +83,7 @@ class App extends React.Component {
           location: json.student.data.attributes.location
         },
         student_dates: json.student.data.attributes.student_dates,
+        friend_requests_as_receiver: json.student.data.attributes.friend_requests_as_receiver, 
         token: json.token
       }, () => this.props.history.push('/student_main'))
     }
@@ -148,7 +150,7 @@ class App extends React.Component {
             student_dates={this.state.student_dates} addDate={this.addDate} classes={this.state.classes.data}
             updateDate={this.updateDate} addNewClass={this.addNewClass} deleteDate={this.deleteDate}
             postFriendRequests={this.postFriendRequests} handleAccept={this.handleAccept} handleDelete={this.handleDelete}
-            student_names = {this.state.student_names}
+            student_names = {this.state.student_names} friend_requests_as_receiver={this.state.friend_requests_as_receiver}
           />
   }
 
@@ -401,8 +403,7 @@ class App extends React.Component {
 
   // Friend requests
   postFriendRequests = (e, student, target) => {
-    console.log(student)
-    console.log(target)
+    e.preventDefault()
     fetch(`http://localhost:3000/friend_requests`, {
       method: 'POST',
       headers: {
@@ -411,6 +412,7 @@ class App extends React.Component {
       },
       body: JSON.stringify({
         requestor_id: student.id,
+        requestor_name: student.name,
         receiver_id: target,
         status: 'pending'
       })
@@ -420,6 +422,7 @@ class App extends React.Component {
       this.setState({
         friend_requests: [...this.state.friend_requests, {
           requestor_id: student.id,
+          requestor_name: student.name,
           receiver_id: target,
           status: 'pending'
         }]
@@ -428,6 +431,7 @@ class App extends React.Component {
   }
 
   handleAccept = (e, target) => {
+    e.preventDefault()
     fetch(`http://localhost:3000/friend_requests/${target}`, {
       method: 'PATCH',
       headers: {
@@ -442,13 +446,12 @@ class App extends React.Component {
   }
 
   handleDelete = (target) => {
-    fetch(`http://localhost:3000/friend_requests/${target.id}`, {
+    fetch(`http://localhost:3000/friend_requests/${target}`, {
       method: 'DELETE'
     })
   }
 
   render(){
-    console.log(this.state.friend_requests)
     return (
       <div className="App">
         <Switch>
