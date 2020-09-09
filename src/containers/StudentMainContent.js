@@ -10,6 +10,13 @@ class StudentMainContent extends React.Component {
         modalShow: false
     }
 
+    handleShow = () => {
+        this.setState ((prevState) => {
+            return {
+            show : !prevState.show
+        }})
+    }
+
     showModal = () => {
         this.setState({
             modalShow: !this.state.modalShow
@@ -37,12 +44,16 @@ class StudentMainContent extends React.Component {
     renderNames = () => {
         return this.props.student_names.map(name => {
             if(name.name !== this.props.student.name){
-                return(
-                    <div>
-                        {name.name}
-                        <button onClick={(e) => this.props.postFriendRequests(e, this.props.student, name.id)}>add friend</button>
-                    </div>
-                )
+                return this.props.friend_requests_as_receiver.map(friend => {
+                    if( name.id !== friend.requestor_id){
+                        return(
+                            <div>
+                                {name.name}
+                                <button onClick={(e) => this.props.postFriendRequests(e, this.props.student, name.id)}>add friend</button>
+                            </div>
+                        )
+                    }
+                })
             }
         })
     }
@@ -65,12 +76,13 @@ class StudentMainContent extends React.Component {
                 )
             }
                 
-            
+
         })
     }
 
     render(){
         let {addDate, updateDate, deleteDate, student, classes, addNewClass} = this.props
+        console.log(this.props.friend_requests_as_receiver)
         return(
             <div>
                 <ul>
