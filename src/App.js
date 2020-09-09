@@ -29,6 +29,7 @@ class App extends React.Component {
     friend_requests: [],
     student_names: [],
     friend_requests_as_receiver: [],
+    friend_requests_as_requestor: [],
     token: "",
     coach_token: ""
   }
@@ -84,6 +85,7 @@ class App extends React.Component {
         },
         student_dates: json.student.data.attributes.student_dates,
         friend_requests_as_receiver: json.student.data.attributes.friend_requests_as_receiver, 
+        friend_requests_as_requestor: json.student.data.attributes.friend_requests_as_requestor, 
         token: json.token
       }, () => this.props.history.push('/student_main'))
     }
@@ -151,6 +153,7 @@ class App extends React.Component {
             updateDate={this.updateDate} addNewClass={this.addNewClass} deleteDate={this.deleteDate}
             postFriendRequests={this.postFriendRequests} handleAccept={this.handleAccept} handleDelete={this.handleDelete}
             student_names = {this.state.student_names} friend_requests_as_receiver={this.state.friend_requests_as_receiver}
+            friend_requests_as_requestor={this.state.friend_requests_as_requestor}
           />
   }
 
@@ -413,7 +416,8 @@ class App extends React.Component {
       body: JSON.stringify({
         requestor_id: student.id,
         requestor_name: student.name,
-        receiver_id: target,
+        receiver_id: target.id,
+        receiver_name: target.name, 
         status: 'pending'
       })
     })
@@ -423,7 +427,8 @@ class App extends React.Component {
         friend_requests: [...this.state.friend_requests, {
           requestor_id: student.id,
           requestor_name: student.name,
-          receiver_id: target,
+          receiver_id: target.id,
+          receiver_name: target.name, 
           status: 'pending'
         }]
       })

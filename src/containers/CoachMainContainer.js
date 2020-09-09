@@ -24,7 +24,7 @@ class CoachMainContent extends React.Component {
     render(){
         let {addClass, updateClass, gyms, allClasses, coach, addGym, coach_classes} = this.props
         return(
-            <div>
+            <div className="main-page">
                 Coach is logged in
                 {this.renderCoachInfo()}
                 {this.renderLogout()}

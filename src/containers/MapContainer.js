@@ -6,13 +6,14 @@ import CurrentLocation from '../components/Map';
 export class MapContainer extends Component {
     render() {
         return (
-            <CurrentLocation
-                centerAroundCurrentLocation
-                google={this.props.google}
-            >
-                <Marker onClick={this.onMarkerClick} name={'current location'} />
-               
-            </CurrentLocation>
+            <div id="current-location">
+                <CurrentLocation
+                    centerAroundCurrentLocation
+                    google={this.props.google}
+                >
+                    <Marker onClick={this.onMarkerClick} name={'current location'} />
+                </CurrentLocation>
+            </div>
         );
     }
 }

@@ -26,7 +26,10 @@ class StudentNavContainer extends React.Component {
 
     renderNewSchedule = (addNewClass, student) => {
         return(
-            <NewClassSchedule classes={this.props.classes} addNewClass={addNewClass} student={student}/>
+            <div>
+                <NewClassSchedule classes={this.props.classes} addNewClass={addNewClass} student={student}/>
+            </div>
+            
         )
     }
 
@@ -40,14 +43,8 @@ class StudentNavContainer extends React.Component {
 
     renderSidenavOptions = (addDate, updateDate, deleteDate, addNewClass, student) => {
         return (
-            <div className="sidenav-options">
-                <ul>
-                    <li><a class="active" href="#home">Home</a></li>
-                    {/* <li><a href="#news" onClick={this.showModal}>Calendar</a></li> */}
-                    <li><a href="#contact">Test</a></li>
-                    <li><a href="#about">About</a></li>
-                </ul>
-                {this.renderMap()}
+            <div >
+                {/* {this.renderMap()} */}
                 {this.renderNewSchedule(addNewClass, student)}
                 {this.renderCalendar(addDate, updateDate, deleteDate, student)}
             </div>
@@ -57,7 +54,7 @@ class StudentNavContainer extends React.Component {
     render(){
         let {addDate, updateDate, deleteDate, addNewClass, student} = this.props
         return(
-            <div className="sidenav-container">
+            <div id="calendar">
                 {this.renderSidenavOptions(addDate, updateDate, deleteDate, addNewClass, student)}
             </div>
         )}

@@ -2,7 +2,7 @@ import React from 'react';
 import {  withRouter, BrowserRouter as Router, Route } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import StudentNavContainer from './StudentNavContainer'
-import MyCalendar from '../components/StudentCalendar'
+import { MapContainer } from './MapContainer';
 import 'react-infinite-calendar/styles.css' // only needs to be imported once
 
 class StudentMainContent extends React.Component {
@@ -21,6 +21,14 @@ class StudentMainContent extends React.Component {
         this.setState({
             modalShow: !this.state.modalShow
         })
+    }
+
+    renderMap = () => {
+        return(
+            <div id="overall-map">
+                <MapContainer/>
+            </div>
+        )
     }
 
     renderUserInfo = () => {
@@ -42,23 +50,48 @@ class StudentMainContent extends React.Component {
     }
 
     renderNames = () => {
-        return this.props.student_names.map(name => {
-            if(name.name !== this.props.student.name){
-                return this.props.friend_requests_as_receiver.map(friend => {
-                    if( name.id !== friend.requestor_id){
-                        return(
-                            <div>
-                                {name.name}
-                                <button onClick={(e) => this.props.postFriendRequests(e, this.props.student, name.id)}>add friend</button>
-                            </div>
-                        )
-                    }
-                })
-            }
+        let receiver = []
+        for(let x = 0; x < this.props.friend_requests_as_receiver.length; x++){
+            receiver.push(this.props.friend_requests_as_receiver[x].requestor_name)
+        }
+        for(let x = 0; x < this.props.friend_requests_as_requestor.length; x++){
+            receiver.push(this.props.friend_requests_as_requestor[x].receiver_name)
+        }
+        let arr = [...receiver, this.props.student.name]
+        let names = this.props.student_names.filter(name => !arr.includes(name.name))
+
+        return names.map(name => {
+            return(
+                <div>
+                    {name.name}
+                    <button onClick={(e) => this.props.postFriendRequests(e, this.props.student, name)}>add friend</button>
+                </div>
+            ) 
         })
     }
 
     renderFriendRequests = () => {
+        let friends = []
+        let pending = []
+
+        for(let x = 0; x < this.props.friend_requests_as_receiver.length; x++){
+            if(this.props.friend_requests_as_receiver[x].status === 'accepted'){
+                friends.push(this.props.friend_requests_as_receiver[x].requestor_name)
+            }   
+            else{
+                pending.push(this.props.friend_requests_as_receiver[x].requestor_name)
+            }
+        }
+
+        for(let x = 0; x < this.props.friend_requests_as_requestor.length; x++){
+            if(this.props.friend_requests_as_requestor[x].status === 'accepted'){
+                friends.push(this.props.friend_requests_as_requestor[x].receiver_name)
+            }
+            else{
+                pending.push(this.props.friend_requests_as_requestor[x].receiver_name)
+            }
+        }
+        console.log(friends, pending)
         return this.props.friend_requests_as_receiver.map(name => {
             if(name.status === 'pending'){
                 return(
@@ -68,23 +101,36 @@ class StudentMainContent extends React.Component {
                     </div>
                 )
             }
-            else{
-                return(
-                    <div>
-                        Friends: {name.requestor_name}
-                    </div>
-                )
-            }
-                
+        })
+    }
 
+    renderFriends = () => {
+        let friends = []
+
+        for(let x = 0; x < this.props.friend_requests_as_receiver.length; x++){
+            if(this.props.friend_requests_as_receiver[x].status === 'accepted'){
+                friends.push(this.props.friend_requests_as_receiver[x].requestor_name)
+            }   
+        }
+
+        for(let x = 0; x < this.props.friend_requests_as_requestor.length; x++){
+            if(this.props.friend_requests_as_requestor[x].status === 'accepted'){
+                friends.push(this.props.friend_requests_as_requestor[x].receiver_name)
+            }
+        }
+        return friends.map(name => {
+            return(
+                <div>
+                    {name}
+                </div>
+            )
         })
     }
 
     render(){
         let {addDate, updateDate, deleteDate, student, classes, addNewClass} = this.props
-        console.log(this.props.friend_requests_as_receiver)
         return(
-            <div>
+            <div className="main-page">
                 <ul>
                     <li><a class="active" href="#home">Home</a></li>
                     <li><a href="#news" onClick={this.showModal}>Calendar</a></li>
@@ -97,6 +143,9 @@ class StudentMainContent extends React.Component {
                 {this.renderNames()}
                 Waiting:
                 {this.renderFriendRequests()}
+                Friends:
+                {this.renderFriends()}
+                {this.renderMap()}
                 <StudentNavContainer dates={this.props.student_dates} addDate={addDate} updateDate={updateDate} 
                     student={student} classes={classes} addNewClass={addNewClass} deleteDate={deleteDate} show={this.state.modalShow}
                 />

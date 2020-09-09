@@ -18,7 +18,6 @@ const MyMapComponent = compose(
         const refs = {
             map: undefined,
         }
-
         return {
             onMapMounted: () => ref => {
                 refs.map = ref
@@ -52,18 +51,18 @@ const MyMapComponent = compose(
                     defaultCenter={{ lat: props.currentLocation.lat, lng: props.currentLocation.lng }} // now this works
                 >
                 {props.places && props.places.map((place, i) =>
-
                     <Marker key={i} position={{ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() }} />
                 )}
                 </GoogleMap> 
             </div>
-            {props.places && props.places.map((place, i) =>
+            <div id="locations">
+                {props.places && props.places.map((place, i) =>
                 <div>
                     {place.name}, {place.vicinity}
                 </div>
             )}
+            </div>
         </div>
-        
     )
 })
 export default MyMapComponent

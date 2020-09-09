@@ -19,7 +19,7 @@ class CoachNavContainer extends React.Component {
 
     renderMap = () => {
         return(
-            <div>
+            <div id="overall-map">
                 map
                 <MapContainer />
             </div>

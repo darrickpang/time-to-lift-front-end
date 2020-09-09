@@ -42,27 +42,22 @@
 }
 
 /* The sidebar menu */
-.sidenav-container {
+/* .sidenav-container {
   height: 100%; 
   width: 100%;
   flex-direction: row;
   position: fixed;
-  /* Full-height: remove this if you want "auto" height */
-  /* width: 500px !important; Set the width of the sidebar */
-  /* position: fixed; Fixed Sidebar (stay in place on scroll) */
-  /* z-index: 1; Stay on top */
-  /* top: 0; Stay at the top */
-  /* left: 0; */
-  background-color: rgb(28, 156, 220); /* Black */
+
+  background-color: rgb(28, 156, 220);
   color: white;
-  overflow-x: hidden; /* Disable horizontal scroll */
+  overflow-x: hidden; 
   padding-top: 20px;
   padding-left: 10px;
   padding-right: 10px;
-}
+} */
 
 /* The navigation menu links */
-.sidenav-container a {
+/* .sidenav-container a {
   padding: 6px 8px 6px 16px;
   margin-left: 30px; 
   margin-right: 30px;
@@ -70,13 +65,13 @@
   font-size: 20px;
   color: #818181;
   display: block;
-}
+} */
 
 /* When you mouse over the navigation links, change their color */
-.sidenav-container a:hover {
+/* .sidenav-container a:hover {
   color: #111;
   background-color: #66FCF1;
-}
+} */
 
 ul {
   list-style-type: none;
@@ -102,7 +97,7 @@ li a:hover {
   background-color: #111;
 }
 
-.my-modal  {
+/* .my-modal  {
   height: 30%; 
   width: 100%;
   font-family: 'Montserrat', sans-serif;
@@ -119,4 +114,38 @@ li a:hover {
 
 .my-modal a:hover {
   color: #66FCF1;
+} */
+
+.main-page {
+  border: 2px solid rgb(26, 159, 196);
+  padding: 25px;
+
+  width: 100%;
+}
+
+#calendar {
+  border: 2px solid rgb(206, 45, 45);
+  padding: 25px;
+ 
+}
+
+#overall-map {
+  border: 2px solid rgb(140, 1, 87);
+  padding: 25px;
+  height: 100%;
+  overflow: hidden;
+  height: auto;
+}
+#current-location {
+  padding: 30px;
+}
+
+#locations {
+  padding: 25px;
+  border: 2px solid rgb(204, 41, 182);
+  background: #0fbee6;
+}
+
+#map {
+  padding: 25px;
 }
