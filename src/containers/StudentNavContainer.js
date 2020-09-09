@@ -5,16 +5,6 @@ import MyCalendar from '../components/StudentCalendar'
 import NewClassSchedule from './NewClassSchedule'
 
 class StudentNavContainer extends React.Component {
-    // state = {
-    //     modalShow: false
-    // }
-
-    // showModal = () => {
-    //     this.setState({
-    //         modalShow: !this.state.modalShow
-    //     })
-    // }
-
     renderMap = () => {
         return(
             <div>
@@ -36,14 +26,14 @@ class StudentNavContainer extends React.Component {
     renderCalendar = (addDate, updateDate, deleteDate, student) => {
         return(
             <MyCalendar student_dates={this.props.dates} classes={this.props.classes} 
-                addDate={addDate} updateDate={updateDate} deleteDate={deleteDate} student={student} show={this.props.show}
+                addDate={addDate} updateDate={updateDate} deleteDate={deleteDate} student={student}
             />
         )
     }
 
     renderSidenavOptions = (addDate, updateDate, deleteDate, addNewClass, student) => {
         return (
-            <div >
+            <div>
                 {/* {this.renderMap()} */}
                 {this.renderNewSchedule(addNewClass, student)}
                 {this.renderCalendar(addDate, updateDate, deleteDate, student)}

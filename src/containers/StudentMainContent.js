@@ -6,23 +6,6 @@ import { MapContainer } from './MapContainer';
 import 'react-infinite-calendar/styles.css' // only needs to be imported once
 
 class StudentMainContent extends React.Component {
-    state = {
-        modalShow: false
-    }
-
-    handleShow = () => {
-        this.setState ((prevState) => {
-            return {
-            show : !prevState.show
-        }})
-    }
-
-    showModal = () => {
-        this.setState({
-            modalShow: !this.state.modalShow
-        })
-    }
-
     renderMap = () => {
         return(
             <div id="overall-map">
@@ -133,7 +116,7 @@ class StudentMainContent extends React.Component {
             <div className="main-page">
                 <ul>
                     <li><a class="active" href="#home">Home</a></li>
-                    <li><a href="#news" onClick={this.showModal}>Calendar</a></li>
+                    <li><a href="#news">Calendar</a></li>
                     <li><a href="#contact">Test</a></li>
                     <li><a href="#about">About</a></li>
                 </ul>
@@ -147,7 +130,7 @@ class StudentMainContent extends React.Component {
                 {this.renderFriends()}
                 {this.renderMap()}
                 <StudentNavContainer dates={this.props.student_dates} addDate={addDate} updateDate={updateDate} 
-                    student={student} classes={classes} addNewClass={addNewClass} deleteDate={deleteDate} show={this.state.modalShow}
+                    student={student} classes={classes} addNewClass={addNewClass} deleteDate={deleteDate}
                 />
             </div>
         )

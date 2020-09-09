@@ -4,6 +4,7 @@ import { compose, withProps, withHandlers, withState } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 // https://stackoverflow.com/questions/47114169/how-to-use-react-with-google-places-api-to-display-place-markers-on-a-google-ma
 // ${process.env.REACT_APP_YOUR_API_KEY_NAME}
+
 const MyMapComponent = compose(
     withProps({
         googleMapURL: `https://maps.googleapis.com/maps/api/js?key=&libraries=places`,
@@ -57,10 +58,10 @@ const MyMapComponent = compose(
             </div>
             <div id="locations">
                 {props.places && props.places.map((place, i) =>
-                <div>
-                    {place.name}, {place.vicinity}
-                </div>
-            )}
+                    <div>
+                        {place.name}, {place.vicinity}
+                    </div>
+                )}
             </div>
         </div>
     )
