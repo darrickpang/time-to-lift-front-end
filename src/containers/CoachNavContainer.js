@@ -10,7 +10,6 @@ class CoachNavContainer extends React.Component {
     renderMap = () => {
         return(
             <div id="overall-map">
-                map
                 <MapContainer/>
             </div>
         )

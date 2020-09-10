@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import {CardBody, Button, Form, Input, FormGroup, Row, Col, Label} from 'reactstrap'
-import Modal from 'react-bootstrap/Modal'
 // import interactionPlugin from "@fullcalendar/interaction";
 export default class MyCalendar extends Component {
 

@@ -244,11 +244,11 @@ class App extends React.Component {
           Accept: 'application/json'
       },
       body: JSON.stringify(newClass),
-  }) 
-  .then(r => r.json())
-  .then(json => {
+    }) 
+    .then(r => r.json())
+    .then(json => {
       this.setState({
-        classes: [...this.state.classes, {
+        classes: [...this.state.classes.data, {
           id: json.id,
           name: json.name,
           time: json.time,
@@ -304,6 +304,7 @@ class App extends React.Component {
   }) 
   .then(r => r.json())
   .then(json => {
+    console.log(json)
       this.setState({
         student_dates: [...this.state.student_dates, {
           id: json.id,
