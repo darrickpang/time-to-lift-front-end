@@ -78,7 +78,7 @@ export default class GymContainer extends Component {
                                 </FormGroup>
                             </Col>
                         </Row>
-                        <Button>Add gym</Button>
+                        <Button className="button">Add gym</Button>
                     </Form> 
                 </CardBody>
             </div>

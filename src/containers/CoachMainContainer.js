@@ -14,7 +14,7 @@ class CoachMainContent extends React.Component {
 
     renderLogout = () => {
         return (
-            <Button onClick={() => {
+            <Button className="button" onClick={() => {
                 localStorage.clear()
                 this.props.history.push('/')
                 }}>Log Out
