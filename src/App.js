@@ -22,6 +22,7 @@ class App extends React.Component {
       location: ""
     },
     student_dates: [],
+    student_classes: [],
     class_lists: [],
     coach_classes: [],
     classes: [],
@@ -86,6 +87,7 @@ class App extends React.Component {
         student_dates: json.student.data.attributes.student_dates,
         friend_requests_as_receiver: json.student.data.attributes.friend_requests_as_receiver, 
         friend_requests_as_requestor: json.student.data.attributes.friend_requests_as_requestor, 
+        student_classes: json.student.data.attributes.class_sessions, 
         token: json.token
       }, () => this.props.history.push('/student_main'))
     }
@@ -154,6 +156,7 @@ class App extends React.Component {
             postFriendRequests={this.postFriendRequests} handleAccept={this.handleAccept} handleDelete={this.handleDelete}
             student_names = {this.state.student_names} friend_requests_as_receiver={this.state.friend_requests_as_receiver}
             friend_requests_as_requestor={this.state.friend_requests_as_requestor}
+            student_classes={this.state.student_classes}
           />
   }
 

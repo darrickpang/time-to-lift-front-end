@@ -4,14 +4,31 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import {CardBody, Button, Form, Input, FormGroup, Row, Col, Label} from 'reactstrap'
 // import interactionPlugin from "@fullcalendar/interaction";
 export default class MyCalendar extends Component {
-
+    
     dates = () => {
-        return this.props.student_dates.map(element => {
+        let classNames = []
+        this.props.student_classes.map(element => {
+            classNames.push({name: element.name, date: element.date})
+        })
+        this.props.student_dates.map(element => {
+            classNames.push({name: element.class_name, date: element.date})
+        })
+        console.log(classNames)
+        return classNames.map(element => {
             return {
-                title: element.class_name,
+                title: element.name,
                 date: element.date
             }
         });
+    }
+
+    moreDates = () => {
+        return this.props.student_classes.map(element => {
+            return{
+                title: element.name,
+                date: element.date
+            }
+        })
     }
 
     state = {
@@ -99,6 +116,7 @@ export default class MyCalendar extends Component {
         if (!classes) {
             return <span>Loading...</span>;
         }
+        console.log(this.props.student_classes)
         return (
             <div>
                 {/* <Modal show={show} className='my-modal'> */}

@@ -117,7 +117,7 @@ class StudentMainContent extends React.Component {
     }
 
     render(){
-        let {addDate, updateDate, deleteDate, student, classes, addNewClass} = this.props
+        let {addDate, updateDate, deleteDate, student, classes, addNewClass, student_classes} = this.props
         return(
             <div className="main-page">
                 <ul>
@@ -134,9 +134,10 @@ class StudentMainContent extends React.Component {
                 {this.renderFriendRequests()}
                 Friends:
                 {this.renderFriends()}
-                {this.renderMap()}
+                {/* {this.renderMap()} */}
                 <StudentNavContainer dates={this.props.student_dates} addDate={addDate} updateDate={updateDate} 
                     student={student} classes={classes} addNewClass={addNewClass} deleteDate={deleteDate}
+                    student_classes={student_classes}
                 />
             </div>
         )
