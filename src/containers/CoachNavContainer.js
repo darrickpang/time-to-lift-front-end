@@ -7,21 +7,11 @@ import GymContainer from './GymContainer'
 import 'react-infinite-calendar/styles.css' 
 
 class CoachNavContainer extends React.Component {
-    state = {
-        modalShow: false
-    }
-
-    setModalShow = () => {
-        this.setState({
-            modalShow: !this.state.modalShow
-        })
-    }
-
     renderMap = () => {
         return(
             <div id="overall-map">
                 map
-                <MapContainer />
+                <MapContainer/>
             </div>
         )
     }
@@ -36,7 +26,6 @@ class CoachNavContainer extends React.Component {
         return(
             <CoachCalendar allClasses={this.props.allClasses} coach={this.props.coach} coach_classes={this.props.coach_classes}/>
         )
-        
     }
 
     renderGyms = () => {
