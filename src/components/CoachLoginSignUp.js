@@ -29,8 +29,8 @@ export default class CoachLoginSignUp extends React.Component {
                 <Input name="age" placeholder="Age" type="number" onChange={this.handleOnChange}/><br/>
                 <label>Location </label>
                 <Input name="location" placeholder="Location" type="text" onChange={this.handleOnChange}/><br/><br/>
-                <Button block className="btn-round" variant='secondary' type="submit">Sign Up</Button>
-                <Button block className="btn-round" variant='secondary' onClick={() => window.location = "/"}>Go Back</Button>
+                <Button block className="login" variant='secondary' type="submit">Sign Up</Button>
+                <Button block className="login" variant='secondary' onClick={() => window.location = "/"}>Go Back</Button>
             </Form>
         )
     }
@@ -45,8 +45,8 @@ export default class CoachLoginSignUp extends React.Component {
                 <Input name="name" placeholder="Name" type="text" onChange={this.handleOnChange}/><br/>
                 <label>Password </label>
                 <Input name="password" placeholder="Password" type="password" onChange={this.handleOnChange}/><br/><br/>
-                <Button block className="btn-round" variant='secondary'>Login</Button>
-                <Button block className="btn-round" variant='secondary' onClick={() => window.location = "/"}>Go Back</Button>
+                <Button block className="login" variant='secondary'>Login</Button>
+                <Button block className="login" variant='secondary' onClick={() => window.location = "/"}>Go Back</Button>
             </Form>            
         )
     }

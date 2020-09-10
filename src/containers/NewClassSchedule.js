@@ -100,7 +100,7 @@ export default class NewClassSchedule extends Component {
                                 {classes ? this.generateClassDropdownOptions(classes) : false}
                             </Input>
                         </FormGroup>
-                        <Button>Submit</Button>
+                        <Button className="button">Submit</Button>
                     </Form> 
                 </CardBody>
             </div>

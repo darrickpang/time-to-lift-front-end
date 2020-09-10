@@ -6,6 +6,12 @@ import { MapContainer } from './MapContainer';
 import 'react-infinite-calendar/styles.css' // only needs to be imported once
 
 class StudentMainContent extends React.Component {
+    state = {
+        receiver: [],
+        friends: [],
+        pending: []
+    }
+
     renderMap = () => {
         return(
             <div id="overall-map">
@@ -24,7 +30,7 @@ class StudentMainContent extends React.Component {
 
     renderLogout = () => {
         return (
-            <Button onClick={() => {
+            <Button className="button" onClick={() => {
                 localStorage.clear()
                 this.props.history.push('/')
                 }}>Log Out
@@ -47,7 +53,7 @@ class StudentMainContent extends React.Component {
             return(
                 <div>
                     {name.name}
-                    <button onClick={(e) => this.props.postFriendRequests(e, this.props.student, name)}>add friend</button>
+                    <button className="button" onClick={(e) => this.props.postFriendRequests(e, this.props.student, name)}>add friend</button>
                 </div>
             ) 
         })
@@ -74,13 +80,13 @@ class StudentMainContent extends React.Component {
                 pending.push(this.props.friend_requests_as_requestor[x].receiver_name)
             }
         }
-        console.log(friends, pending)
+
         return this.props.friend_requests_as_receiver.map(name => {
             if(name.status === 'pending'){
                 return(
                     <div>
                         {name.requestor_name}
-                        <button onClick={(e) => this.props.handleAccept(e, name.id)}>Accept</button>
+                        <button className="button" onClick={(e) => this.props.handleAccept(e, name.id)}>Accept</button>
                     </div>
                 )
             }

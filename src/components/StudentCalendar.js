@@ -123,9 +123,9 @@ export default class MyCalendar extends Component {
                                     {student_dates ? this.generateDateDropdownOptions(student_dates) : false}
                                 </Input>
                             </FormGroup>
-                            <Button name="update" onClick={(e) => this.handleSubmit(e, addDate, updateDate, deleteDate)}>Add or update schedule</Button>
+                            <Button className="button" name="update" onClick={(e) => this.handleSubmit(e, addDate, updateDate, deleteDate)}>Add or update schedule</Button>
                             {this.state.deleteDate ? 
-                                <Button onClick={(e) => this.handleSubmit(e, addDate, updateDate, deleteDate)}>Delete Schedule</Button> : false
+                                <Button className="button"onClick={(e) => this.handleSubmit(e, addDate, updateDate, deleteDate)}>Delete Schedule</Button> : false
                             }
                         </Form> 
                     </CardBody>
