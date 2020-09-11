@@ -84,7 +84,7 @@ export default class NewClassSchedule extends Component {
         let {addNewClass, student, classes} = this.props
         return(
             <div>
-                new class schedule
+                Sign up for a class
                 <CardBody>
                     <Form onSubmit={(e) => this.handleSubmit(e, addNewClass)}>
                         <Row form>

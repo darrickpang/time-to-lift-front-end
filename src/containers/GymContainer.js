@@ -54,6 +54,7 @@ export default class GymContainer extends Component {
         // console.log(this.props)
         return (
             <div>
+                Add Gym
                 <CardBody>
                     <Form onSubmit={(e) => this.handleSubmit(e, addGym)}>
                         <Row form>

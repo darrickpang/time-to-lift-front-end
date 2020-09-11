@@ -107,6 +107,7 @@ export default class CoachClassContainer extends Component {
         let {addClass, updateClass, gyms} = this.props
         return(
             <div>
+                Classes
                 <CardBody>
                     <Form onSubmit={(e) => this.handleSubmit(e, addClass, updateClass, gyms)}>
                         <Row form>
