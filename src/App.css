@@ -66,7 +66,7 @@ li a:hover {
 }
 
 .main-page {
-  border: 10px solid rgb(26, 159, 196);
+  /* border: 10px solid rgb(26, 159, 196); */
   padding: 25px;
   width: 100%;
 }
@@ -89,11 +89,11 @@ li a:hover {
 .button:hover {opacity: 1}
 
 .login-button {
-  color: #20bf6b !important;
+  color: #15aee1 !important;
   text-transform: uppercase;
   background: #ffffff;
   padding: 20px;
-  border: 4px solid #20bf6b !important;
+  border: 4px solid #4464c4 !important;
   border-radius: 6px;
   display: inline-block;
   transition: all 0.3s ease 0s;  
@@ -166,13 +166,13 @@ input[type=number], select {
 }
 
 #calendar {
-  border: 5px solid rgb(206, 45, 45); 
+  /* border: 5px solid rgb(206, 45, 45);  */
   padding: 25px;
   position: relative;
 }
 
 #overall-map {
-  border: 8px solid rgb(140, 1, 87);
+  /* border: 8px solid rgb(140, 1, 87); */
   height: 1000px;
   width: 100%;
   overflow: hidden;
@@ -181,20 +181,20 @@ input[type=number], select {
 }
 
 #current-location {
-  border: 8px solid rgb(140, 1, 87);
+  /* border: 8px solid rgb(140, 1, 87); */
   padding: 25px;
 }
 
 #locations {
   margin: 10px; 
-  border: 5px solid rgb(204, 41, 182);
-  background: #0fbee6;
+  /* border: 5px solid rgb(204, 41, 182); */
+  /* background: #0fbee6; */
   height:500px; 
   float: bottom; 
   position: relative;
 }
 
 #map {
-  border: 8px solid rgb(216, 40, 149);
+  /* border: 8px solid rgb(216, 40, 149); */
   padding: 25px;
 }

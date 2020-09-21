@@ -33,7 +33,6 @@ export default class MyCalendar extends Component {
         this.setState({
             [e.target.name]: e.target.value
         })
-        console.log(e.target.name)
     }
 
     handleSubmit = (e, addDate, updateDate, deleteDate) => {

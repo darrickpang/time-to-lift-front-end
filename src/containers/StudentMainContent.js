@@ -120,19 +120,19 @@ class StudentMainContent extends React.Component {
         let {addDate, updateDate, deleteDate, student, classes, addNewClass, student_classes} = this.props
         return(
             <div className="main-page">
-                <ul>
+                {/* <ul>
                     <li><a class="active" href="#home">Home</a></li>
                     <li><a href="#news">Calendar</a></li>
                     <li><a href="#contact">Test</a></li>
                     <li><a href="#about">About</a></li>
-                </ul>
+                </ul> */}
                 {this.renderUserInfo()}
                 {this.renderLogout()} 
                 Friend suggestions:
                 {this.renderNames()}
-                Waiting:
+                Waiting: 
                 {this.renderFriendRequests()}
-                Friends:
+                Friends:    
                 {this.renderFriends()}
                 {/* {this.renderMap()} */}
                 <StudentNavContainer dates={this.props.student_dates} addDate={addDate} updateDate={updateDate} 

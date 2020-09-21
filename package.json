@@ -15,6 +15,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "actioncable-js": "^5.0.0-rc2",
     "bootstrap": "^4.5.2",
     "daypilot-pro-react": "https://npm.daypilot.org/daypilot-pro-react/trial/2018.2.3297.tar.gz",
     "google-maps-react": "^2.0.6",
