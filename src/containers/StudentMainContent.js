@@ -4,6 +4,7 @@ import { Button } from 'reactstrap';
 import StudentNavContainer from './StudentNavContainer'
 import { MapContainer } from './MapContainer';
 import 'react-infinite-calendar/styles.css' // only needs to be imported once
+// import chatConnection from './ChatSystem'
 
 class StudentMainContent extends React.Component {
     state = {

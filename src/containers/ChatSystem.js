@@ -1,7 +1,7 @@
-import ActionCable from 'actioncable'
+import ActionCable from 'react-actioncable-provider';
 import {V2_API_BASE_URL, ACCESS_TOKEN_NAME, CLIENT_NAME, UID_NAME} from '../../globals.js'
 
-chatConnection = (senderId, callback) => {
+function chatConnection(senderId, callback){
     let access_token = localStorage.getItem(ACCESS_TOKEN_NAME)
     let client = localStorage.getItem(CLIENT_NAME)
     let base_url = `ws://` + V2_API_BASE_URL + `/cable`
