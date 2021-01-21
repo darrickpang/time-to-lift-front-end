@@ -239,7 +239,7 @@ class App extends React.Component {
   }
 
   // Classes information 
-  addClass= (newClass) => {
+  addClass = (newClass) => {
     fetch(`http://localhost:3000/class_sessions`, {
       method: 'POST', 
       headers: {

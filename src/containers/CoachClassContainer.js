@@ -138,7 +138,7 @@ export default class CoachClassContainer extends Component {
                                 <option value={"n/a"}>Select gym</option>
                                 {gyms ? this.generateGymDropdownOptions(gyms) : false}
                             </Input>
-                    </FormGroup>
+                        </FormGroup>
                         <Button className="button">Submit</Button>
                     </Form> 
                 </CardBody>
