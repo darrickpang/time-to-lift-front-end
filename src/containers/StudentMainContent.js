@@ -135,7 +135,6 @@ class StudentMainContent extends React.Component {
                 {this.renderFriendRequests()}
                 Friends:    
                 {this.renderFriends()}
-                {/* {this.renderMap()} */}
                 <StudentNavContainer dates={this.props.student_dates} addDate={addDate} updateDate={updateDate} 
                     student={student} classes={classes} addNewClass={addNewClass} deleteDate={deleteDate}
                     student_classes={student_classes}
