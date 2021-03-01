@@ -123,7 +123,7 @@ export default class CoachClassContainer extends Component {
                             </Col>
                             <Col md={6}>
                                 <FormGroup>
-                                    <Input type="text" name="date" id="date" placeholder="Class date" value={this.state.date} onChange={this.handleOnChange}/>
+                                    <Input type="date" name="date" id="date" placeholder="Class date" value={this.state.date} onChange={this.handleOnChange}/>
                                 </FormGroup>
                             </Col>
                             <Col md={6}>
