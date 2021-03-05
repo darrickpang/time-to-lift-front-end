@@ -48,7 +48,8 @@ class StudentNavContainer extends React.Component {
             <div id="calendar">
                 {this.renderSidenavOptions(addDate, updateDate, deleteDate, addNewClass, student)}
             </div>
-        )}
+        )
     }
+}
 
 export default withRouter(StudentNavContainer)
