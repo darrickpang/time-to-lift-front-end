@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction";
+
 export default class CoachCalendar extends Component {
     dates = () => {
         return this.props.coach_classes.map(element => {
